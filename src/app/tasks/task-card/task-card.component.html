@@ -7,5 +7,14 @@
     <p class="card-text">
       Finalize the homepage design and get approval from the client.
     </p>
+    <!-- Add Comment Icon/Button -->
+  
   </div>
+</div>
+<button class="fa fa-comment" (click)="toggleComments()">
+ ajouter Comment
+</button>
+<!-- Conditionally Display app-comment Based on showComments -->
+<div class="app-comment-wrapper" *ngIf="showComments">
+  <app-comment></app-comment>
 </div>

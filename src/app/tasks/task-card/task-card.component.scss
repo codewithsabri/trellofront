@@ -5,9 +5,15 @@
     padding: 8px; // Slightly reduced to fit content
     width: 90%;
     margin: auto;
-    z-index: 0;
     height: 100px; // Maintained height
 }
+
+.app-comment-wrapper {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically if needed */
+    width: 100%; /* Take full width to center content within */
+  }
 
 .card-title {
     font-size: 16px; // Slightly reduced for proportionality
@@ -21,15 +27,16 @@
 }
 
 .card-button {
-    background-color: #007bff;
+    background-color: #056ad6;
     color: #fff;
     border: none;
     border-radius: 3px; // Slightly reduced for proportionality
-    padding: 6px 12px; // Slightly reduced to fit in the card
+    padding: 12px 12px; // Slightly reduced to fit in the card
     font-size: 12px; // Slightly reduced for consistency
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+
 
 .card-button:hover {
     background-color: #0056b3;
