@@ -1,0 +1,30 @@
+<div class="modal-overlay" *ngIf="isOpen">
+  <div class="modal">
+    <div class="modal-header">
+
+      <h2>{{modalTitle}}</h2>
+    </div>
+    <div class="modal-body">
+      <!-- Bind the formGroup directive to your form group -->
+      <form [formGroup]="form">
+        <label for="input1">Input 1:</label>
+        <!-- Use formControlName to bind the input to the form control -->
+        <input id="input1" type="text" formControlName="input1">
+
+        <label for="input2">Input 2:</label>
+        <input id="input2" type="text" formControlName="input2">
+
+        <label for="input3">Input 3:</label>
+        <input id="input3" type="text" formControlName="input3">
+
+        <label for="input4">Input 4:</label>
+        <input id="input4" type="text" formControlName="input4">
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button (click)="closeModal()">Close</button>
+      <!-- Add a submit button for the form -->
+      <button type="submit" (click)="onSubmit()" [disabled]="!form.valid">Save</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+.card {
+    background-color: #fffefe;
+    border-radius: 5px; // Slightly reduced for proportionality
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 8px; // Slightly reduced to fit content
+    width: 90%;
+    margin: auto;
+    z-index: 0;
+    height: 100px; // Maintained height
+}
+
+.card-title {
+    font-size: 16px; // Slightly reduced for proportionality
+    font-weight: bold;
+    margin-bottom: 6px; // Slightly reduced to fit in the card
+}
+
+.card-description {
+    font-size: 12px; // Slightly reduced for better fit
+    color: #666;
+}
+
+.card-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px; // Slightly reduced for proportionality
+    padding: 6px 12px; // Slightly reduced to fit in the card
+    font-size: 12px; // Slightly reduced for consistency
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.card-button:hover {
+    background-color: #0056b3;
+}
