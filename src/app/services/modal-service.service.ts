@@ -12,7 +12,8 @@ export class ModalService {
     return this.display.asObservable();
   }
 
-  open() {
+  open(action: string) {
+    console.log(`Opening modal for action: ${action}`);
     console.log('Modal is opening');
     this.display.next('open');
   }

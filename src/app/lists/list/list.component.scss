@@ -4,11 +4,23 @@
   box-shadow: 0 1px 0 rgba(9,30,66,.25);
   display: flex;
   flex-direction: column;
-  width: 400px;
+
   padding: 8px;
   margin-bottom: 100px; 
   background: #235f4e;
  
+}
+
+ul {
+  width: 350px;
+}
+
+.button-wrapper { 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  width:250px;
 }
   
   .list-header {
@@ -48,10 +60,11 @@
     color: #172b4d;
     cursor: pointer;
     font-size: 14px;
-    margin-top: 8px;
+
     padding: 8px;
     text-align: left;
-    margin-bottom: 100px;
+    margin-bottom: 25px;
+    padding: 20px;
   }
   
   .add-item-btn:hover {

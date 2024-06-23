@@ -28,8 +28,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.modalSubscription.unsubscribe();
   }
 
-  toggleModal() {
-    this.modalService.open();
+  toggleModal(action: string) {
+    this.modalService.open(action);
   }
 
   toggleModalClose() {

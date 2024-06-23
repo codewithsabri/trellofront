@@ -9,12 +9,21 @@
     </ul>
   </div>
   <div class="main-content">
+    <!-- Add List Button -->
+  
    
     <!-- Main content here -->
-    <app-list></app-list>
-    <app-list></app-list>
-    <app-list></app-list>
-    
+    <app-list [title]="'To do'"></app-list>
+    <app-list [title]="'Doing'"></app-list>
+    <app-list [title]="'Done'"></app-list>
+
+  
+    <div class="add-list" (click)="toggleModal('addList')">
+      <p>Add List</p>
+      <i class="fas fa-plus"></i>
+    </div>
+  
     <!-- Add more lists as needed -->
   </div>
+
 </div>

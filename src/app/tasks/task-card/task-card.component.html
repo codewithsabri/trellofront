@@ -11,9 +11,12 @@
   
   </div>
 </div>
-<button class="fa fa-comment" (click)="toggleComments()">
- ajouter Comment
-</button>
+<div class="button-container">
+  <button class="fa fa-comment" (click)="toggleComments()">
+    ajouter Comment
+   </button>
+</div>
+
 <!-- Conditionally Display app-comment Based on showComments -->
 <div class="app-comment-wrapper" *ngIf="showComments">
   <app-comment></app-comment>

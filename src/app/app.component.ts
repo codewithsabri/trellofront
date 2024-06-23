@@ -6,6 +6,8 @@ import { HeaderComponent } from './navigation/header/header.component';
 import { FooterComponent } from './navigation/footer/footer.component';
 import { routes } from './app.routes';
 import { bootstrapApplication } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http'; 
+import { provideHttpClient } from '@angular/common/http';// Import HttpClientModule
 
 @Component({
   selector: 'app-root',
@@ -18,6 +20,7 @@ import { bootstrapApplication } from '@angular/platform-browser';
     TaskCardComponent,
     HeaderComponent,
     FooterComponent,
+    HttpClientModule, // Add HttpClientModule here
   ],
 })
 export class AppComponent {
@@ -25,5 +28,6 @@ export class AppComponent {
 }
 
 bootstrapApplication(AppComponent, {
-  providers: [provideRouter(routes)],
+  providers: [provideRouter(routes), provideHttpClient(),],
 });
+

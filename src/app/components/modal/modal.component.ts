@@ -62,6 +62,11 @@ export class ModalComponent implements OnInit {
     console.log('Saving form data for page:', formData.page, 'with data:', formData.data);
   }
 
+  open(action: string) {
+    console.log(`Opening modal for action: ${action}`);
+    // Additional logic here to handle the action
+  }
+
   onSubmit() {
     if (this.form.valid) {
       this.saveFormData();

@@ -25,6 +25,7 @@
   list-style-type: none; /* Removes bullet points */
   margin-left : 0;
   padding-left: 0%;
+
 }
 .main-content {
   display: flex;
@@ -35,4 +36,29 @@
   background-color: #fff;
   width: calc(100% - 20vw); /* Adjust width to account for sidebar */
   margin-left: 20vw; /* Pushes main content to start after the sidebar */
+}
+
+.add-list {
+  display: flex; /* Use flexbox to center content */
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  padding: 10px 25px; /* Adjust padding as needed */
+  margin-top: 50px;;
+ /* Space between this div and the next app-list */
+  border: 2px solid #007bff; /* Example border color, adjust as needed */
+  border-radius: 4px; /* Gives the rectangular div rounded corners */
+  cursor: pointer; /* Changes the cursor to a pointer to indicate it's clickable */
+  background-color: #f8f9fa; /* Light background, adjust as needed */
+  color: #007bff; /* Text color, adjust as needed */
+  font-weight: bold;
+  width: 500px;
+  height: 250px; /* Adjust height as needed */
+  background: #d7d3dd; 
+  flex-direction: column;/* Background color */
+}
+
+.add-list p {
+  font-size: 1.5em; /* Adjust font size as needed */
+  white-space: nowrap; 
+
 }
