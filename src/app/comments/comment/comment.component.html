@@ -1,13 +1,9 @@
 <div class="comment-section">
+  <form [formGroup]="commentForm" (ngSubmit)="onSubmit($event)">
     <div class="comment-input">
-      <textarea placeholder="Add a comment..."></textarea>
-      <button style="background-color: rgb(21, 114, 195);">Add Comment</button>
+      <textarea formControlName="comment" placeholder="Add a comment..."></textarea>
+      <button type="submit" style="background-color: rgb(21, 114, 195);">Add Comment</button>
     </div>
-    <div class="comment-list">
-      <div class="comment">
-        <p class="comment-text">This is an example comment.</p>
-        <span class="comment-author">- User Name</span>
-      </div>
-      <!-- Additional comments can be added here, each wrapped in a div with the class "comment" -->
-    </div>
-  </div>
+  </form>
+
+</div>

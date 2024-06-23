@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators ,ReactiveFormsModule} from '@angular/forms';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ModalService } from '../../services/modal-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../services/service-api.service';
@@ -27,11 +27,17 @@ export class ModalComponent implements OnInit {
     private http: HttpClient
   ) {
     this.form = new FormGroup({
-      input1: new FormControl('', Validators.required),
-      input2: new FormControl('', Validators.required),
-      input3: new FormControl('', Validators.required),
-      input4: new FormControl('', Validators.required),
+      input1: new FormControl('', [Validators.required, this.requireNonEmpty]),
+      input2: new FormControl('', [Validators.required, this.requireNonEmpty]),
+      input3: new FormControl('', [Validators.required, this.requireNonEmpty]),
+      input4: new FormControl('', [Validators.required, this.requireNonEmpty]),
     });
+  }
+
+  requireNonEmpty(control: FormControl): { [key: string]: any } | null {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { 'whitespace': 'value is only whitespace' };
   }
 
   ngOnInit() {
@@ -71,6 +77,13 @@ export class ModalComponent implements OnInit {
     if (this.form.valid) {
       this.saveFormData();
       this.closeModal();
+    } else {
+      // Iterate over the form controls and mark them as touched to trigger the display of error messages
+      Object.keys(this.form.controls).forEach(field => {
+        const control = this.form.get(field);
+        control?.markAsTouched({ onlySelf: true });
+      });
+      console.error('Form is not valid. Please fill in all required fields.');
     }
   }
 }

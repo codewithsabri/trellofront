@@ -1,29 +1,50 @@
 <div class="modal-overlay" *ngIf="isOpen">
   <div class="modal">
     <div class="modal-header">
-
       <h2>{{modalTitle}}</h2>
     </div>
     <div class="modal-body">
-      <!-- Bind the formGroup directive to your form group -->
       <form [formGroup]="form">
-        <label for="input1">Input 1:</label>
-        <!-- Use formControlName to bind the input to the form control -->
-        <input id="input1" type="text" formControlName="input1">
-
-        <label for="input2">Input 2:</label>
-        <input id="input2" type="text" formControlName="input2">
-
-        <label for="input3">Input 3:</label>
-        <input id="input3" type="text" formControlName="input3">
-
-        <label for="input4">Input 4:</label>
-        <input id="input4" type="text" formControlName="input4">
+        <div>
+          <label for="input1">Input 1:</label>
+          <input id="input1" type="text" formControlName="input1">
+          <!-- Error message for Input 1 -->
+          <div *ngIf="form.get('input1')?.errors && form.get('input1')?.touched" class="error-message">
+            <small *ngIf="form.get('input1')?.errors?.['required']">Input 1 is required.</small>
+            <small *ngIf="form.get('input1')?.errors?.['whitespace']">Input 1 cannot be empty or whitespace.</small>
+          </div>
+        </div>
+        <div>
+          <label for="input2">Input 2:</label>
+          <input id="input2" type="text" formControlName="input2">
+          <!-- Error message for Input 2 -->
+          <div *ngIf="form.get('input2')?.errors && form.get('input2')?.touched" class="error-message">
+            <small *ngIf="form.get('input2')?.errors?.['required']">Input 2 is required.</small>
+            <small *ngIf="form.get('input2')?.errors?.['whitespace']">Input 2 cannot be empty or whitespace.</small>
+          </div>
+        </div>
+        <div>
+          <label for="input3">Input 3:</label>
+          <input id="input3" type="text" formControlName="input3">
+          <!-- Error message for Input 3 -->
+          <div *ngIf="form.get('input3')?.errors && form.get('input3')?.touched" class="error-message">
+            <small *ngIf="form.get('input3')?.errors?.['required']">Input 3 is required.</small>
+            <small *ngIf="form.get('input3')?.errors?.['whitespace']">Input 3 cannot be empty or whitespace.</small>
+          </div>
+        </div>
+        <div>
+          <label for="input4">Input 4:</label>
+          <input id="input4" type="text" formControlName="input4">
+          <!-- Error message for Input 4 -->
+          <div *ngIf="form.get('input4')?.errors && form.get('input4')?.touched" class="error-message">
+            <small *ngIf="form.get('input4')?.errors?.['required']">Input 4 is required.</small>
+            <small *ngIf="form.get('input4')?.errors?.['whitespace']">Input 4 cannot be empty or whitespace.</small>
+          </div>
+        </div>
       </form>
     </div>
     <div class="modal-footer">
       <button (click)="closeModal()">Close</button>
-      <!-- Add a submit button for the form -->
       <button type="submit" (click)="onSubmit()" [disabled]="!form.valid">Save</button>
     </div>
   </div>
