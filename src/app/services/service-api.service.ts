@@ -17,7 +17,7 @@ export class ApiService {
   fetchDataForPage(url: string) {
     // Determine the API endpoint based on the pagePath
     // This is a simplified example. Adjust the logic as needed.
-    const apiUrl = `https://jsonplaceholder.typicode.com/posts/`;
+    const apiUrl = `http://localhost:3000/projects`;
     return this.http.get(apiUrl);
   }
 

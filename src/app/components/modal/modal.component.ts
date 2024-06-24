@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule, ValidatorFn } from '@angular/forms';
 import { ModalService } from '../../services/modal-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../services/service-api.service';
@@ -15,9 +15,17 @@ import { CommonModule } from '@angular/common';
 })
 export class ModalComponent implements OnInit {
   isOpen = false;
-  form: FormGroup;
+  formGroup1: FormGroup;
+  formGroup2: FormGroup;
+  formGroup3: FormGroup;
+  formGroup4: FormGroup;
   public modalTitle: string = '';
-  public currentPage: string = '';
+  requireNonEmpty(control: FormControl): { [key: string]: any } | null {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { 'requireNonEmpty': true };
+  }
+
 
   constructor(
     private modalService: ModalService,
@@ -26,19 +34,25 @@ export class ModalComponent implements OnInit {
     private apiService: ApiService,
     private http: HttpClient
   ) {
-    this.form = new FormGroup({
-      input1: new FormControl('', [Validators.required, this.requireNonEmpty]),
-      input2: new FormControl('', [Validators.required, this.requireNonEmpty]),
-      input3: new FormControl('', [Validators.required, this.requireNonEmpty]),
-      input4: new FormControl('', [Validators.required, this.requireNonEmpty]),
+    this.formGroup1 = new FormGroup({
+      title: new FormControl('', [Validators.required, this.requireNonEmpty]),
+      description: new FormControl('', [Validators.required, this.requireNonEmpty]),
     });
+    this.formGroup2 = new FormGroup({
+      title: new FormControl('', [Validators.required, this.requireNonEmpty]),
+      description: new FormControl('', [Validators.required, this.requireNonEmpty]),
+    });
+    this.formGroup3 = new FormGroup({
+      title: new FormControl('', [Validators.required, this.requireNonEmpty]),
+      description: new FormControl('', [Validators.required, this.requireNonEmpty]),
+    });
+    this.formGroup4 = new FormGroup({
+      title: new FormControl('', [Validators.required, this.requireNonEmpty]),
+      description: new FormControl('', [Validators.required, this.requireNonEmpty]),
+    });
+
   }
 
-  requireNonEmpty(control: FormControl): { [key: string]: any } | null {
-    const isWhitespace = (control.value || '').trim().length === 0;
-    const isValid = !isWhitespace;
-    return isValid ? null : { 'whitespace': 'value is only whitespace' };
-  }
 
   ngOnInit() {
     this.modalService.watch().subscribe((status) => {
@@ -48,24 +62,29 @@ export class ModalComponent implements OnInit {
     const fullPath = this.router.url;
     console.log('Current path:', fullPath);
 
-    this.currentPage = fullPath.startsWith('/') ? fullPath.substring(1) : fullPath;
-    this.modalTitle = this.currentPage;
 
-    this.apiService.fetchDataForPage(this.currentPage).subscribe((data) => {
-      console.log(data);
-    });
+  
   }
+
+  // existing code
+
+getLabelForControl(controlName: string): string {
+  // logic to get label for control
+  const control = this.formGroup1.get(controlName);
+  if (control) {
+    const label = controlName === 'title' ? 'Title' : 'Description';
+    return label;
+  }
+  return '';
+
+}
 
   closeModal() {
     this.modalService.close();
   }
 
   saveFormData() {
-    const formData = {
-      page: this.currentPage,
-      data: this.form.value,
-    };
-    console.log('Saving form data for page:', formData.page, 'with data:', formData.data);
+
   }
 
   open(action: string) {
@@ -74,13 +93,13 @@ export class ModalComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.form.valid) {
+    if (this.formGroup1.valid) {
       this.saveFormData();
       this.closeModal();
     } else {
       // Iterate over the form controls and mark them as touched to trigger the display of error messages
-      Object.keys(this.form.controls).forEach(field => {
-        const control = this.form.get(field);
+      Object.keys(this.formGroup1.controls).forEach(field => {
+        const control = this.formGroup1.get(field);
         control?.markAsTouched({ onlySelf: true });
       });
       console.error('Form is not valid. Please fill in all required fields.');

@@ -1,12 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GetProjectsService } from '../../services/get-projects.service'; // Corrected service import
-
-interface Project {
-  id: number;
-  title: string;
-  description: string; // This will hold 'Completed' or 'Not Completed'
-}
+import { Project } from '../../models/project';
+import { Task } from '../../models/task'; // Import Task model
+import { Comments } from '../../models/comment'; // Import Comment model
+import { List } from '../../models/lists';// Import List model
 
 @Component({
   selector: 'app-project',
@@ -16,15 +13,19 @@ interface Project {
   styleUrls: ['./project.component.scss']
 })
 export class ProjectComponent implements OnInit {
-  projects: Project[] = []; // Changed type to Project[]
+  @Input() projects: Project[] = [];
+  @Input() tasks: Task[] = []; // Input for tasks
+  @Input() comments: Comments[] = []; // Input for comments
+  @Input() lists: List[] = []; // Input for lists
+  @Output() projectClicked = new EventEmitter<number>(); // You can also type this according to your project model
 
-  constructor(private getProjectsService: GetProjectsService) {} // Corrected service name
+  onProjectClick(project: any) {
+    this.projectClicked.emit(project.id);
+  }
+
+  constructor() {}
 
   ngOnInit() {
-    console.log('ngOnInit called');
-    this.getProjectsService.getProjects().subscribe((projects: any) => {
-      this.projects = projects as Project[];
-      console.log('Data fetching completed', this.projects);
-    });
+    console.log(this.projects, this.tasks, this.comments, this.lists);
   }
 }

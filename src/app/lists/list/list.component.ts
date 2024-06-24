@@ -1,20 +1,26 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core'; // Removed duplicate 'input'
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { ModalService } from '../../services/modal-service.service';
 import { Subscription } from 'rxjs';
-import { TaskComponent } from '../../tasks/task/task.component';
+
+import { TaskCardComponent } from '../../tasks/task-card/task-card.component';
+import { Task } from '../../models/task';
+import { List } from '../../models/lists';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterLink, ModalComponent,TaskComponent],
+  imports: [CommonModule, RouterLink, ModalComponent, TaskCardComponent],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit, OnDestroy {
   @Input() title: string = ''; 
+  @Input() tasks: Task[] = [];
+  @Input() lists: List[] = []; 
+
   private modalSubscription: Subscription = new Subscription();
 
   constructor(private modalService: ModalService) {}
