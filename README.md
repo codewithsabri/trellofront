@@ -1,3 +1,6 @@
+# Maquette du projet à faire sur Excalidraw
+
+
 # Trello
 Bonjour tout le monde, merci d'ajouter les packages manquants que jai ajouté dans le fichier package.json
 
