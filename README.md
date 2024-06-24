@@ -1,4 +1,10 @@
 # Trello
+Bonjour tout le monde, merci d'ajouter les packages manquants que jai ajouté dans le fichier package.json
+
+Ensuite vous pouvez récupérer tous les fichiers modifiés et lancer le projet.
+
+Bon courage 
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.3.
 
