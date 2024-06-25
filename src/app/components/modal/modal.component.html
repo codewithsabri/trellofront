@@ -1,0 +1,24 @@
+<div class="modal-overlay" *ngIf="isOpen">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>{{modalTitle}}</h2>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="formGroup1">
+        <div *ngFor="let controlName of ['input1', 'input2', 'input3', 'input4']; let i = index">
+          <label [for]="controlName">{{getLabelForControl(controlName)}}</label>
+          <input [id]="controlName" type="text" [formControlName]="controlName">
+          <!-- Error message -->
+          <div *ngIf="formGroup1.get(controlName)?.errors && formGroup1.get(controlName)?.touched" class="error-message">
+            <small *ngIf="formGroup1.get(controlName)?.errors?.['required']">{{controlName}} is required.</small>
+            <small *ngIf="formGroup1.get(controlName)?.errors?.['whitespace']">{{controlName}} cannot be empty or whitespace.</small>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button (click)="closeModal()">Close</button>
+      <button type="submit" (click)="onSubmit()" [disabled]="!formGroup1.valid">Save</button>
+    </div>
+  </div>
+</div>

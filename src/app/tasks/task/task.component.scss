@@ -1,0 +1,10 @@
+.task-wrapper {
+  display: flex;
+  flex-direction: column; /* Adjusts width based on the content */
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: auto;
+  margin : auto; /* Centers the content horizontally */
+  /* Other styles remain unchanged */
+}

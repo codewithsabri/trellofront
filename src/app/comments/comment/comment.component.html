@@ -1,0 +1,9 @@
+<div class="comment-section">
+  <form [formGroup]="commentForm" (ngSubmit)="onSubmit($event)">
+    <div class="comment-input">
+      <textarea formControlName="comment" placeholder="Add a comment..."></textarea>
+      <button type="submit" style="background-color: rgb(21, 114, 195);">Add Comment</button>
+    </div>
+  </form>
+
+</div>

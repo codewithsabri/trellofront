@@ -1,0 +1,37 @@
+<form (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="titleInput">Title</label>
+    <input
+      type="text"
+      class="form-control"
+      id="titleInput"
+      [(ngModel)]="title"
+      name="title"
+    />
+  </div>
+  <div class="form-group">
+    <label for="categorySelect">Categorie</label>
+    <select
+      class="form-control"
+      id="categorySelect"
+      [(ngModel)]="categorie"
+      name="categorie"
+    >
+      <option>Design</option>
+      <option>Development</option>
+      <option>Marketing</option>
+      <!-- Add more categories as needed -->
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="taskDescription">Description</label>
+    <textarea
+      class="form-control"
+      id="taskDescription"
+      rows="3"
+      [(ngModel)]="description"
+      name="description"
+    ></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Add Task</button>
+</form>
