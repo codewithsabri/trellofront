@@ -1,0 +1,17 @@
+<form [formGroup]="taskForm" (ngSubmit)="submit()">
+    <div>
+      <label for="taskName">Task Name</label>
+      <input id="taskName" formControlName="taskName" />
+    </div>
+    <div>
+      <label for="dueDate">Due Date</label>
+      <input type="date" id="dueDate" formControlName="dueDate" />
+    </div>
+    <div>
+      <label for="priority">Priority</label>
+      <input id="priority" formControlName="priority" />
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+  <p>tache</p>
+  

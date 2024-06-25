@@ -1,0 +1,9 @@
+
+<form [formGroup]="listForm" (ngSubmit)="submit()">
+    <div>
+      <label for="listName">List Name</label>
+      <input id="listName" formControlName="listName" />
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+  

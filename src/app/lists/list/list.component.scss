@@ -1,0 +1,72 @@
+.list-container {
+
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(9,30,66,.25);
+  display: flex;
+  flex-direction: column;
+
+  padding: 8px;
+  margin-bottom: 100px; 
+  background: #235f4e;
+ 
+}
+
+ul {
+  width: 350px;
+}
+
+.button-wrapper { 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  width:250px;
+}
+  
+  .list-header {
+    padding-bottom: 8px;
+  }
+  
+  .list-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #172b4d;
+  }
+  
+  .list-items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex; /* Enables flexbox */
+    flex-direction: column; /* Stacks items vertically */
+    align-items: center; 
+    justify-content: center;
+  }
+  
+  .list-item {
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(9,30,66,.25);
+    margin-bottom: 8px;
+    padding: 8px;
+    font-size: 14px;
+    color: #172b4d;
+  }
+  
+  .add-item-btn {
+    background-color: #ffffff3d;
+    border: none;
+    border-radius: 3px;
+    color: #172b4d;
+    cursor: pointer;
+    font-size: 14px;
+
+    padding: 8px;
+    text-align: left;
+    margin-bottom: 25px;
+    padding: 20px;
+  }
+  
+  .add-item-btn:hover {
+    background-color: #ffffff52;
+  }

@@ -1,0 +1,21 @@
+<div class="modal-overlay" *ngIf="isOpen">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>{{modalTitle}}</h2>
+    </div>
+    <div class="modal-body">
+      <!-- ngSwitch directive to switch between forms -->
+       
+  
+      <div [ngSwitch]="formType">
+        <app-project-form *ngSwitchCase="'projectform'"></app-project-form>
+        <app-list-form *ngSwitchCase="'listform'"></app-list-form>
+        <app-task-form *ngSwitchCase="'taskform'"></app-task-form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button (click)="closeModal()">Close</button>
+      <button type="submit" (click)="onSubmit()">Save</button>
+    </div>
+  </div>
+</div>
