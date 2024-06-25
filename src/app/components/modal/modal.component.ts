@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, ReactiveFormsModule, ValidatorFn } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  ReactiveFormsModule,
+  ValidatorFn,
+} from '@angular/forms';
 import { ModalService } from '../../services/modal-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../services/service-api.service';
@@ -23,9 +29,8 @@ export class ModalComponent implements OnInit {
   requireNonEmpty(control: FormControl): { [key: string]: any } | null {
     const isWhitespace = (control.value || '').trim().length === 0;
     const isValid = !isWhitespace;
-    return isValid ? null : { 'requireNonEmpty': true };
+    return isValid ? null : { requireNonEmpty: true };
   }
-
 
   constructor(
     private modalService: ModalService,
@@ -36,23 +41,33 @@ export class ModalComponent implements OnInit {
   ) {
     this.formGroup1 = new FormGroup({
       title: new FormControl('', [Validators.required, this.requireNonEmpty]),
-      description: new FormControl('', [Validators.required, this.requireNonEmpty]),
+      description: new FormControl('', [
+        Validators.required,
+        this.requireNonEmpty,
+      ]),
     });
     this.formGroup2 = new FormGroup({
       title: new FormControl('', [Validators.required, this.requireNonEmpty]),
-      description: new FormControl('', [Validators.required, this.requireNonEmpty]),
+      description: new FormControl('', [
+        Validators.required,
+        this.requireNonEmpty,
+      ]),
     });
     this.formGroup3 = new FormGroup({
       title: new FormControl('', [Validators.required, this.requireNonEmpty]),
-      description: new FormControl('', [Validators.required, this.requireNonEmpty]),
+      description: new FormControl('', [
+        Validators.required,
+        this.requireNonEmpty,
+      ]),
     });
     this.formGroup4 = new FormGroup({
       title: new FormControl('', [Validators.required, this.requireNonEmpty]),
-      description: new FormControl('', [Validators.required, this.requireNonEmpty]),
+      description: new FormControl('', [
+        Validators.required,
+        this.requireNonEmpty,
+      ]),
     });
-
   }
-
 
   ngOnInit() {
     this.modalService.watch().subscribe((status) => {
@@ -61,30 +76,22 @@ export class ModalComponent implements OnInit {
 
     const fullPath = this.router.url;
     console.log('Current path:', fullPath);
-
-
-  
   }
 
   // existing code
 
-getLabelForControl(controlName: string): string {
-  // logic to get label for control
-  const control = this.formGroup1.get(controlName);
-  if (control) {
-    const label = controlName === 'title' ? 'Title' : 'Description';
-    return label;
+  getLabelForControl(controlName: string): string {
+    // logic to get label for control
+    const control = this.formGroup1.get(controlName);
+    if (control) {
+      const label = controlName === 'title' ? 'Title' : 'Description';
+      return label;
+    }
+    return '';
   }
-  return '';
-
-}
 
   closeModal() {
     this.modalService.close();
-  }
-
-  saveFormData() {
-
   }
 
   open(action: string) {
@@ -94,11 +101,10 @@ getLabelForControl(controlName: string): string {
 
   onSubmit() {
     if (this.formGroup1.valid) {
-      this.saveFormData();
       this.closeModal();
     } else {
       // Iterate over the form controls and mark them as touched to trigger the display of error messages
-      Object.keys(this.formGroup1.controls).forEach(field => {
+      Object.keys(this.formGroup1.controls).forEach((field) => {
         const control = this.formGroup1.get(field);
         control?.markAsTouched({ onlySelf: true });
       });

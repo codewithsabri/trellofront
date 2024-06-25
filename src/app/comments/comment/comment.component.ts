@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -6,19 +6,16 @@ import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule]
+  imports: [ReactiveFormsModule],
 })
-export class CommentComponent implements OnInit {
+export class CommentComponent {
   commentForm: FormGroup = new FormGroup({
-    comment: new FormControl('')
+    comment: new FormControl(''),
   });
 
   @Output() commentSubmitted = new EventEmitter<void>(); // Add this line
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  constructor() {}
 
   onSubmit(event: Event): void {
     event.preventDefault(); // Prevent form refresh

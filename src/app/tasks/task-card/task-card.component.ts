@@ -1,28 +1,26 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { CommentComponent } from '../../comments/comment/comment.component';
-import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
 import { Comments } from '../../models/comment';
+import { CommonModule } from '@angular/common';
+import { CommentComponent } from '../../comments/comment/comment.component';
 
 @Component({
   selector: 'app-task-card',
   templateUrl: './task-card.component.html',
   styleUrls: ['./task-card.component.scss'],
-  imports: [CommentComponent, CommonModule],
+  imports: [CommonModule, CommentComponent],
   standalone: true,
 })
-export class TaskCardComponent implements OnInit {
+export class TaskCardComponent {
   @Input() taskId?: string | number = ''; // Adjust type as necessary and provide an initializer
   @Input() title: string = '';
   @Input() description: string = '';
   @Input() comments: Comments[] = [];
 
-  showCommentsFlag: boolean = false; // Input for comments
+  isVisible: boolean = false; // Input for comments
   showComments: boolean = false;
   // Placeholder for comments data
 
   constructor() {}
-
-  ngOnInit(): void {}
 
   toggleComments() {
     console.log('Toggling comments');
@@ -31,14 +29,12 @@ export class TaskCardComponent implements OnInit {
     this.showComments = !this.showComments;
   }
 
-  getComments() {}
-
   showCommentsList() {
     console.log('showcomments');
-    this.showCommentsFlag = !this.showCommentsFlag;
+    this.isVisible = !this.isVisible;
     console.log('Comments:', this.comments);
 
-    console.log('showcomments', this.showCommentsFlag);
+    console.log('showcomments', this.isVisible);
   }
 
   // Base height of the card without comments (in pixels)
@@ -48,7 +44,7 @@ export class TaskCardComponent implements OnInit {
   additionalHeightPerComment: number = 40; // Adjust based on your needs
 
   getCardHeight(): string {
-    if (this.showCommentsFlag) {
+    if (this.isVisible) {
       // Calculate total height when comments are shown
       const totalHeight =
         this.baseCardHeight +

@@ -20,9 +20,7 @@ import { Task } from '../../models/task';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   selectedProject: number = 1;
-
   isModalOpen = false;
-
   projects: Project[] = [];
   // Placeholder variables for other models
   lists: List[] = []; // Assuming you might have a service to fetch lists
@@ -41,7 +39,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.getProjectsService.getProjects().subscribe((projects: Project[]) => {
       this.onProjectSelected(1);
       this.projects = projects;
-      console.log('init again');
+
+      console.log('projects', projects);
 
       // Extract lists from projects
       this.lists = projects.flatMap((project) => project.lists);
@@ -49,10 +48,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.tasks = this.lists.flatMap((list) => list.tasks);
       // Map tasks to comments
       this.comments = this.tasks.flatMap((task) => task.comments);
-      console.log('Data fetching completed', this.projects);
-      console.log('Lists extracted from projects', this.lists);
-      console.log('Tasks extracted from lists', this.tasks);
-      console.log('Comments extracted from tasks', this.comments);
     });
     // Initialize other variables here if necessary
     this.modalSubscription = this.modalService.watch().subscribe((status) => {
@@ -67,27 +62,14 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   onProjectSelected(projectId: number) {
     this.selectedProject = projectId; // Update the selectedProject variable
-    console.log('Selected project ID:', this.projects);
+
     const selectedProject = this.projects.find(
       (project) => project.id === projectId
     );
-    console.log('project after', selectedProject);
+
     // Filter the lists array based on the projectId
     this.filteredLists = selectedProject?.lists;
-    console.log(
-      'Filtered lists for project ID:',
-      projectId,
-      this.filteredLists
-    );
   }
-  // selectProject(project: Project) {
-  //   this.selectedProject = project.id;
-  //   // Optionally, extract and update lists, tasks, and comments for the selected project
-  //   this.lists = project.lists || [];
-  //   this.tasks = this.lists.flatMap((list) => list.tasks);
-  //   this.comments = this.tasks.flatMap((task) => task.comments);
-  //   console.log('Project selected:', this.selectedProject);
-  // }
 
   toggleModal(action: string) {
     if (action === 'open') {

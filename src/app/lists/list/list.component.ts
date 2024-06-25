@@ -4,10 +4,9 @@ import { RouterLink } from '@angular/router';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { ModalService } from '../../services/modal-service.service';
 import { Subscription } from 'rxjs';
-
-import { TaskCardComponent } from '../../tasks/task-card/task-card.component';
 import { Task } from '../../models/task';
 import { List } from '../../models/lists';
+import { TaskCardComponent } from '../../tasks/task-card/task-card.component';
 
 @Component({
   selector: 'app-list',

@@ -1,8 +1,6 @@
 export interface Comments {
-    id: number;
-    text: string;
-    author: string;
+  id: number;
+  text: string;
+  author: string;
+  taksId: number;
 }
-
-
-
