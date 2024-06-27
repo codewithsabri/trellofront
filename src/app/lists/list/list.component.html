@@ -6,6 +6,7 @@
     <!-- Iterate through tasks array -->
     <li *ngFor="let task of tasksList" class="list-item">
       <app-task-card
+     
         [taskId]="task.id"
         [title]="task.title"
         [description]="task.description"
@@ -15,7 +16,7 @@
   </ul>
 
   <div class="button-wrapper">
-    <button class="add-item-btn" (click)="toggleModal('taskform')">
+    <button class="add-item-btn" (click)="toggleModal('taskform',listId)">
       Add another card
     </button>
   </div>

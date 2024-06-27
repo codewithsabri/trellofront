@@ -4,6 +4,7 @@ import {
   ViewChild,
   ViewContainerRef,
   Type,
+   Input
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ModalService } from '../../services/modal-service.service';
@@ -31,13 +32,9 @@ import { ListFormComponent } from '../forms/list-form/list-form.component';
 export class ModalComponent implements OnInit {
   public formType: string = 'projectform';
   isOpen = false;
+  @Input() currentId: number = 0;
 
   public modalTitle: string = '';
-  requireNonEmpty(control: FormControl): { [key: string]: any } | null {
-    const isWhitespace = (control.value || '').trim().length === 0;
-    const isValid = !isWhitespace;
-    return isValid ? null : { requireNonEmpty: true };
-  }
 
   constructor(private modalService: ModalService) {}
 
@@ -46,15 +43,19 @@ export class ModalComponent implements OnInit {
       this.isOpen = status === 'open';
     });
 
-    this.modalService.watchAction().subscribe((action) => {
-      // Use the action string to set modalTitle or formType
-      this.formType = action; // Example: setting formType based on action
+    this.modalService.watchAction().subscribe((actionItem) => {
+      this.formType = actionItem.action; 
+      this.currentId = actionItem.Id;
     });
+
+    console.log('Current ID in modal', this.currentId);
   }
 
-  
-
-  // existing code
+  requireNonEmpty(control: FormControl): { [key: string]: any } | null {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { requireNonEmpty: true };
+  }
 
   closeModal() {
     this.modalService.close();

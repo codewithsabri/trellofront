@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { Comments } from '../../models/comment';
 import { CommonModule } from '@angular/common';
 
-
 @Component({
   selector: 'app-task-card',
   templateUrl: './task-card.component.html',
@@ -15,12 +14,18 @@ export class TaskCardComponent {
   @Input() title: string = '';
   @Input() description: string = '';
   @Input() comments: Comments[] = [];
+  @Input() Listid: number = 0;
 
   isVisible: boolean = false; // Input for comments
   showComments: boolean = false;
   // Placeholder for comments data
 
   constructor() {}
+
+  ngOnInit() {
+    console.log('test')
+    console.log(this.Listid)
+  }
 
   toggleComments() {
     console.log('Toggling comments');
@@ -33,9 +38,8 @@ export class TaskCardComponent {
     console.log('showcomments');
     this.isVisible = !this.isVisible;
     console.log('Comments:', this.comments);
-  
-    console.log('showcomments', this.isVisible);
 
+    console.log('showcomments', this.isVisible);
   }
 
   // Base height of the card without comments (in pixels)

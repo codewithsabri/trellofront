@@ -1,13 +1,19 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-
+interface ActionItemId {
+  action: string;
+  Id: number;
+}
 @Injectable({
   providedIn: 'root',
 })
 export class ModalService {
-  private display: BehaviorSubject<'open' | 'close'> = new BehaviorSubject<'open' | 'close'>('close');
-  private action: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  private display: BehaviorSubject<'open' | 'close'> = new BehaviorSubject<
+    'open' | 'close'
+  >('close');
+  private action: BehaviorSubject<ActionItemId> =
+    new BehaviorSubject<ActionItemId>({ action: '', Id: 1 });
 
   watch() {
     return this.display.asObservable();
@@ -17,10 +23,11 @@ export class ModalService {
     return this.action.asObservable();
   }
 
-  open(action: string) {
-    console.log(`Opening modal for action: ${action}`);
-    this.action.next(action); // Update action state
+  open(action: string, Id: number) {
+    console.log(`Opening modal for action: ${action} with Project ID: ${Id}`);
+    this.action.next({ action, Id }); // Update action state with both action and projectId
     this.display.next('open');
+    
   }
 
   close() {

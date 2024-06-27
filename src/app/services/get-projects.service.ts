@@ -16,7 +16,7 @@ export class GetProjectsService {
 
   getProjects(): Observable<Project[]> {
     if (!this.dataFetched) {
-      this.projects$ = this.http.get<Project[]>('http://localhost:3000/projects').pipe(
+      this.projects$ = this.http.get<Project[]>('https://trellobackendupdate.azurewebsites.net/api/project').pipe(
         shareReplay(1),
         catchError(error => {
           console.error('HTTP error occurred', error);

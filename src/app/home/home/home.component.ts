@@ -60,10 +60,20 @@ export class HomeComponent implements OnInit, OnDestroy {
       // Perform actions here, e.g., fetch new data or update the view
       this.reloadData();
     });
+
+    this.apiService.listCreated$.subscribe(() => {
+      // Perform actions here, e.g., fetch new data or update the view
+      this.reloadData();
+    });
+
+    this.apiService.taskCreated$.subscribe(() => {
+      // Perform actions here, e.g., fetch new data or update the view
+      this.reloadData();
+    });
   }
 
   reloadData() {
-    location.reload(); 
+    location.reload();
     // Logic to re-fetch data or update the component view
   }
 
@@ -73,7 +83,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   onProjectSelected(projectId: number) {
-    this.selectedProject = projectId; // Update the selectedProject variable
+    this.selectedProject = projectId;
+    console.log(this.selectedProject) // Update the selectedProject variable
 
     const selectedProject = this.projects.find(
       (project) => project.id === projectId
@@ -83,8 +94,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.filteredLists = selectedProject?.lists;
   }
 
-  toggleModal(action: string) {
-    this.modalService.open(action);
+  toggleModal(action: string, projectId: number): void {
+    // Your logic here, for example, opening a modal and passing the action and projectId
+    console.log(`Action: ${action}, Project ID: ${projectId}`);
+    // Assuming your modal service can handle the project ID
+    this.modalService.open(action, projectId);
   }
 
   toggleModalClose() {

@@ -1,5 +1,5 @@
 // project-form.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -19,11 +19,13 @@ import { environment } from '../../../../environments/environment';
 export class ProjectFormComponent implements OnInit {
   projectForm: FormGroup = new FormGroup({});
 
+  @Input() currentId: number = 0;
+
   constructor(private fb: FormBuilder, private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.projectForm = this.fb.group({
-      name: ['', Validators.required],
+      title: ['', Validators.required],
       description: ['', Validators.required],
     });
   }
@@ -31,7 +33,7 @@ export class ProjectFormComponent implements OnInit {
   submit() {
     if (this.projectForm.valid) {
       this.apiService
-        .post(`${environment.apiUrl}/projects`, this.projectForm.value)
+        .post(`${environment.apiUrl}/api/project`, this.projectForm.value)
         .subscribe({
           next: (response) => {
             console.log('Success:', response);

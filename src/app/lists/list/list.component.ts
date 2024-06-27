@@ -19,37 +19,46 @@ export class ListComponent implements OnInit, OnDestroy {
   @Input() title: string = '';
   @Input() tasks: Task[] = [];
   @Input() lists: List[] = [];
+  @Input() projectId: number = 0;
 
   processedLists: List[] = [];
-  tasksList: Task[] = []; 
+  tasksList: Task[] = [];
+
+
+  @Input() listId: number = 0;
 
   private modalSubscription: Subscription = new Subscription();
 
   constructor(private modalService: ModalService) {}
 
   ngOnInit() {
-    console.log(this.title)
+    console.log(this.title);
     this.modalSubscription = this.modalService.watch().subscribe((status) => {
-      console.log("rerender")
+
       // Handle modal status changes here if needed
     });
 
 
-    console.log('Received lists:', this.lists);
-    this.prepareLists(); 
+    console.log("Listsid: ", this.listId);
+
+
+    this.prepareLists();
+
   }
 
- 
   prepareLists() {
     // Process the lists here. For now, it's just copying them.
     // This is where you could filter or transform the lists as needed.
-    this.processedLists = this.lists.map(list => ({
+    this.processedLists = this.lists.map((list) => ({
       ...list,
       tasks: list.tasks, // Assuming you might want to filter or modify tasks in the future
     }));
 
     // Step 2, 3, 4: Iterate through each list and accumulate tasks into tasksList
-    this.tasksList = this.lists.reduce((acc: Task[], list) => acc.concat(list.tasks), []);
+    this.tasksList = this.lists.reduce(
+      (acc: Task[], list) => acc.concat(list.tasks),
+      []
+    );
   }
 
   // Example method in your list.component.ts
@@ -63,8 +72,8 @@ export class ListComponent implements OnInit, OnDestroy {
     this.modalSubscription.unsubscribe();
   }
 
-  toggleModal(action: string) {
-    this.modalService.open(action);
+  toggleModal(action: string, id: number) {
+    this.modalService.open(action, id);
   }
 
   toggleModalClose() {
