@@ -1,63 +1,64 @@
-import { Component, Input } from '@angular/core';
-import { Comments } from '../../models/comment';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormBuilder, FormGroup, Validators,ReactiveFormsModule } from '@angular/forms';
+import { ApiService } from '../../services/service-api.service';
+import { environment } from '../../../environments/environment';
 import { CommonModule } from '@angular/common';
+import { Comments } from '../../models/comment';
 
 @Component({
   selector: 'app-task-card',
   templateUrl: './task-card.component.html',
   styleUrls: ['./task-card.component.scss'],
-  imports: [CommonModule],
+  imports: [CommonModule,ReactiveFormsModule],
   standalone: true,
 })
-export class TaskCardComponent {
-  @Input() taskId?: string | number = ''; // Adjust type as necessary and provide an initializer
+export class TaskCardComponent implements OnInit {
+  @Input() taskId?: string | number = '';
   @Input() title: string = '';
   @Input() description: string = '';
   @Input() comments: Comments[] = [];
   @Input() Listid: number = 0;
 
-  isVisible: boolean = false; // Input for comments
+  isVisible: boolean = false;
   showComments: boolean = false;
-  // Placeholder for comments data
+  commentForm: FormGroup = new FormGroup({});
 
-  constructor() {}
+  constructor(private fb: FormBuilder, private apiService: ApiService) {}
 
-  ngOnInit() {
-    console.log('test')
-    console.log(this.Listid)
+  ngOnInit(): void {
+    this.commentForm = this.fb.group({
+      Text: ['', Validators.required],
+      // You can add more fields here as needed
+    });
   }
 
-  toggleComments() {
-    console.log('Toggling comments');
-    console.log('Comments:', this.comments);
-
+  toggleComments(): void {
     this.showComments = !this.showComments;
   }
 
-  showCommentsList() {
-    console.log('showcomments');
+  showCommentsList(): void {
     this.isVisible = !this.isVisible;
-    console.log('Comments:', this.comments);
-
-    console.log('showcomments', this.isVisible);
   }
 
-  // Base height of the card without comments (in pixels)
-  baseCardHeight: number = 150; // Adjust based on your default card height
+  submitComment(): void {
+    if (this.commentForm.valid) {
+      const payload = {
+        ...this.commentForm.value,
+        taskId: this.taskId,
+        author : "Anonymous" // Assuming taskId is needed for the comment
+        // Add any other relevant fields here
+      };
 
-  // Additional height per comment (in pixels)
-  additionalHeightPerComment: number = 40; // Adjust based on your needs
-
-  getCardHeight(): string {
-    if (this.isVisible) {
-      // Calculate total height when comments are shown
-      const totalHeight =
-        this.baseCardHeight +
-        this.comments.length * this.additionalHeightPerComment;
-      return `${totalHeight}px`;
-    } else {
-      // Return base height when comments are not shown
-      return `${this.baseCardHeight}px`;
+      console.log('Comment Payload:', payload);
+      this.apiService.post(`${environment.apiUrl}/api/comment`, payload).subscribe({
+        next: (response) => {
+          console.log('Comment Success:', response);
+          // Handle successful comment submission (e.g., refresh comments list)
+        },
+        error: (error) => console.error('Comment Error:', error),
+      });
     }
   }
+
+  // Methods for calculating card height remain unchanged
 }

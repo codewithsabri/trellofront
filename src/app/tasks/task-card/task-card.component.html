@@ -17,25 +17,26 @@
     </ng-container>
   </div>
 
-  <!-- Content to toggle -->
-<div *ngIf="isVisible">
-  <!-- This content will be shown when isVisible is true -->
-  <p>Comments are visible</p>
-</div>
-
   <div class="button-container">
     <button class="fa fa-comment" (click)="toggleComments()">
       ajouter Comment
     </button>
   </div>
-  <div *ngIf="showComments" class="input-container">
-    <div class="input-group">
-      <input type="text" placeholder="Add comment" class="form-control" />
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button">
-          <i class="fas fa-paper-plane"></i>
-        </button>
+  <form [formGroup]="commentForm" (ngSubmit)="submitComment()">
+    <div *ngIf="showComments" class="input-container">
+      <div class="input-group">
+        <input
+          type="text"
+          placeholder="Add comment"
+          class="form-control"
+          formControlName="Text"
+        />
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="submit">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
+  </form>
 </div>
