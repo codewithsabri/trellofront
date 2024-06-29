@@ -8,22 +8,16 @@ import { Project } from '../models/project';
   providedIn: 'root'
 })
 export class GetProjectsService {
-  private projects$: Observable<Project[]> = of([]);
-  private dataFetched: boolean = false;
 
   constructor(private http: HttpClient) {}
 
   getProjects(): Observable<Project[]> {
-    if (!this.dataFetched) {
-      this.projects$ = this.http.get<Project[]>('https://trellobackendupdate.azurewebsites.net/api/project').pipe(
-        shareReplay(1),
-        catchError(error => {
-          console.error('HTTP error occurred', error);
-          return of([]);
-        })
-      );
-      this.dataFetched = true;
-    }
-    return this.projects$;
+    return this.http.get<Project[]>('https://trellobackendupdate.azurewebsites.net/api/project').pipe(
+      shareReplay(1),
+      catchError(error => {
+        console.error('HTTP error occurred', error);
+        return of([]);
+      })
+    );
   }
 }

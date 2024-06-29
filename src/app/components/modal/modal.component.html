@@ -7,9 +7,18 @@
       <!-- ngSwitch directive to switch between forms -->
 
       <div [ngSwitch]="formType">
-        <app-project-form *ngSwitchCase="'projectform'" [currentId]="currentId"></app-project-form>
-        <app-list-form *ngSwitchCase="'listform'" [currentId]="currentId"></app-list-form>
-        <app-task-form *ngSwitchCase="'taskform'" [currentId]="currentId"></app-task-form>
+        <app-project-form
+          *ngSwitchCase="'projectform'"
+          [currentId]="currentId"
+        ></app-project-form>
+        <app-list-form
+          *ngSwitchCase="'listform'"
+          [currentId]="currentId"
+        ></app-list-form>
+        <app-task-form
+          *ngSwitchCase="'taskform'"
+          [currentId]="currentId"
+        ></app-task-form>
       </div>
     </div>
     <div class="modal-footer">

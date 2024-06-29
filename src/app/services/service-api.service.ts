@@ -11,10 +11,12 @@ export class ApiService {
   private projectCreatedSource = new Subject<void>();
   private listCreatedSource = new Subject<void>(); // New Subject for list creation
   private taskCreatedSource = new Subject<void>(); // New Subject for task creation
+  private commentCreatedSource = new Subject<void>(); // New Subject for comment creation
 
   projectCreated$ = this.projectCreatedSource.asObservable();
   listCreated$ = this.listCreatedSource.asObservable(); // New Observable for list creation
   taskCreated$ = this.taskCreatedSource.asObservable(); // New Observable for task creation
+  commentCreated$ = this.commentCreatedSource.asObservable(); // New Observable for comment creation
 
   apiurl = `${environment.apiUrl}/api`;
 
@@ -36,9 +38,13 @@ export class ApiService {
     this.taskCreatedSource.next(); // Emit event for task creation
   }
 
+  commentCreated() {
+    this.commentCreatedSource.next(); // Emit event for comment creation
+  }
+
   post(formData: FormData, formType: string): Observable<any> {
     return this.http.post(`${this.apiurl}/${formType}`, formData);
-}
+  }
 
   delete(id: number, formType: string): Observable<any> {
     return this.http.delete(`${this.apiurl}/${formType}/${id}`);

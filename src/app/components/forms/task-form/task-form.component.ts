@@ -8,7 +8,6 @@ import {
 } from '@angular/forms';
 import { ApiService } from '../../../services/service-api.service';
 
-
 @Component({
   selector: 'app-task-form',
   templateUrl: './task-form.component.html',
@@ -39,13 +38,11 @@ export class TaskFormComponent implements OnInit {
         ...this.taskForm.value,
         listId: this.currentId, // Add the projectId field with currentId value
       };
-
       console.log('Payload:', payload);
       this.apiService.post(payload, this.formType).subscribe({
         next: (response) => {
           console.log('Success:', response);
-          // Assuming there's a method to handle task creation event
-          this.apiService.taskCreated(); // Publish the event
+          this.apiService.taskCreated(); // Emit the task creation event
         },
         error: (error) => console.error('Error:', error),
       });

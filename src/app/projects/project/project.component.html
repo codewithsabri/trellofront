@@ -1,5 +1,10 @@
 <div *ngFor="let project of projects" class="project-wrapper" (click)="onProjectClick(project)">
   <div class="card">
+    <div class="card-header">
+      <button type="button" class="btn btn-danger" (click)="delete(project.id, formType); $event.stopPropagation()">
+        Delete
+      </button>
+    </div>
     <div class="card-body">
       <p>{{project.id}}</p>
       <h5 class="card-title">{{project.name}}</h5>

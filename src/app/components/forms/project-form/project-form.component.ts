@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ApiService } from '../../../services/service-api.service';
-import { environment } from '../../../../environments/environment';
+
 
 @Component({
   selector: 'app-project-form',
@@ -18,7 +18,6 @@ import { environment } from '../../../../environments/environment';
 })
 export class ProjectFormComponent implements OnInit {
   projectForm: FormGroup = new FormGroup({});
-  url = 'https://trellobackendupdate.azurewebsites.net/api/project';
   formType: string = 'Project';
 
   @Input() currentId: number = 0;
@@ -31,11 +30,11 @@ export class ProjectFormComponent implements OnInit {
       description: ['', Validators.required],
     });
   }
-  edit(id: number, data: any, formType: string) {
+  edit(id: number, formType: string) {
     // Implement the logic to edit a project with the given id
     console.log(`Editing project with id: ${id}`);
     // Example: Fetch the project details and populate the form
-    this.apiService.update( id, data, formType).subscribe({
+    this.apiService.update(id, this.projectForm.value, formType).subscribe({
       next: (project) => {
         this.projectForm.patchValue(project);
         console.log('Project details fetched for editing:', project);
@@ -44,18 +43,6 @@ export class ProjectFormComponent implements OnInit {
     });
   }
 
-  delete(id: number, formType: string) {
-    // Implement the logic to delete a project with the given id
-    console.log(`Deleting project with id: ${id}`);
-    // Example: Call the API to delete the project and handle the response
-    this.apiService.delete(id, formType).subscribe({
-      next: () => {
-        console.log(`Project with id: ${id} deleted successfully.`);
-        // Optionally, refresh the list of projects or navigate away
-      },
-      error: (error) => console.error('Error deleting project:', error),
-    });
-  }
 
   submit() {
     if (this.projectForm.valid) {

@@ -6,7 +6,7 @@
     <!-- Iterate through tasks array -->
     <li *ngFor="let task of tasksList" class="list-item">
       <app-task-card
-     
+        [projectid]="projectId"
         [taskId]="task.id"
         [title]="task.title"
         [description]="task.description"

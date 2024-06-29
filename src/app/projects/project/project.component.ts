@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Project } from '../../models/project';
-import { Task } from '../../models/task'; // Import Task model
-import { Comments } from '../../models/comment'; // Import Comment model
-import { List } from '../../models/lists'; // Import List model
+import { Task } from '../../models/task';
+import { Comments } from '../../models/comment';
+import { List } from '../../models/lists';
+import { ApiService } from '../../services/service-api.service';
 
 @Component({
   selector: 'app-project',
@@ -14,18 +15,31 @@ import { List } from '../../models/lists'; // Import List model
 })
 export class ProjectComponent implements OnInit {
   @Input() projects: Project[] = [];
-  @Input() tasks: Task[] = []; // Input for tasks
-  @Input() comments: Comments[] = []; // Input for comments
-  @Input() lists: List[] = []; // Input for lists
-  @Output() projectClicked = new EventEmitter<number>(); // You can also type this according to your project model
+  @Input() tasks: Task[] = [];
+  @Input() comments: Comments[] = [];
+  @Input() lists: List[] = [];
+  @Output() projectClicked = new EventEmitter<number>();
+  formType = 'Project';
 
-  onProjectClick(project: any) {
+  constructor(private apiService: ApiService) {}
+
+  @Output() projectDeleted = new EventEmitter<number>();
+
+  onProjectClick(project: Project) {
     this.projectClicked.emit(project.id);
   }
 
-  constructor() {}
-
+  delete(id: number, formType: string) {
+    console.log(`Deleting project with id: ${id}`);
+    this.apiService.delete(id, formType).subscribe({
+      next: () => {
+        console.log(`Project with id: ${id} deleted successfully.`);
+        this.projectDeleted.emit(id);
+      },
+      error: (error) => console.error('Error deleting project:', error),
+    });
+  }
   ngOnInit() {
-    console.log('je suis project component');
+    console.log('Project component initialized');
   }
 }
