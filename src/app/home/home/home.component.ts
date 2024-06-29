@@ -21,7 +21,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   selectedProject: number = 0;
   isModalOpen = false;
   projects: Project[] = [];
-  filteredLists?: List[] = [];
+  filteredLists: List[] | undefined = [] ;
+
   private modalSubscription: Subscription = new Subscription();
 
   constructor(
@@ -32,11 +33,20 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.fetchProjects();
+    console.log(this.projects)
     this.modalSubscription = this.modalService.watch().subscribe((status) => {
       this.isModalOpen = status === 'open';
     });
     this.subscribeToProjectChanges();
+
+
+   
+    
   }
+
+  // hasFilteredLists(): boolean {
+  //   return this.filteredLists.length > 0;
+  // }
 
   ngOnDestroy() {
     this.modalSubscription.unsubscribe();
@@ -56,17 +66,20 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.apiService.listCreated$.subscribe(this.fetchProjects.bind(this));
     this.apiService.taskCreated$.subscribe(this.fetchProjects.bind(this));
     this.apiService.commentCreated$.subscribe(this.fetchProjects.bind(this));
-    
   }
 
   onProjectSelected(projectId: number) {
     this.selectedProject = projectId;
-    const selectedProject = this.projects.find((project) => project.id === projectId);
-    this.filteredLists = selectedProject?.lists;
+    const selectedProject = this.projects.find(
+      (project) => project.id === projectId
+    );
+    this.filteredLists = selectedProject?.lists ?? [];
+    this.filteredLists = this.filteredLists ?? [];
+    // this.hasFilteredLists();
   }
 
-  toggleModal(action: string, projectId: number): void {
-    this.modalService.open(action, projectId);
+  toggleModal(action: string, projectId: number, data:any): void {
+    this.modalService.open(action, projectId,data);
   }
 
   toggleModalClose() {
@@ -74,6 +87,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   onProjectDeleted(deletedProjectId: number) {
-    this.projects = this.projects.filter((project) => project.id !== deletedProjectId);
+    this.projects = this.projects.filter(
+      (project) => project.id !== deletedProjectId
+    );
   }
 }

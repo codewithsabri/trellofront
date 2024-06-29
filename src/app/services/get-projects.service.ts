@@ -14,8 +14,10 @@ export class GetProjectsService {
   getProjects(): Observable<Project[]> {
     return this.http.get<Project[]>('https://trellobackendupdate.azurewebsites.net/api/project').pipe(
       shareReplay(1),
+      tap(() => console.log('fetched projects')),
       catchError(error => {
         console.error('HTTP error occurred', error);
+
         return of([]);
       })
     );

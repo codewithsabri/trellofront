@@ -5,7 +5,10 @@
       <small class="text-muted">{{ dueDate | frenchDate }}</small>
       <div class="icon-group">
         <i class="fas fa-edit edit-delete-icons"></i>
-        <i class="fas fa-trash-alt edit-delete-icons"></i>
+        <i
+          class="fas fa-trash-alt edit-delete-icons"
+          (click)="deleteTask(taskId)"
+        ></i>
       </div>
     </div>
     <div class="card-body">

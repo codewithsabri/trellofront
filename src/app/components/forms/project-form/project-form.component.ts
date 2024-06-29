@@ -31,13 +31,18 @@ export class ProjectFormComponent implements OnInit {
     });
   }
   edit(id: number, formType: string) {
-    // Implement the logic to edit a project with the given id
     console.log(`Editing project with id: ${id}`);
-    // Example: Fetch the project details and populate the form
-    this.apiService.update(id, this.projectForm.value, formType).subscribe({
+    // Create a payload with the form values and add the id as a key
+    const payload = {
+      ...this.projectForm.value,
+      id: id // Add the id to the payload
+    };
+  
+    this.apiService.update(id, payload, formType).subscribe({
       next: (project) => {
         this.projectForm.patchValue(project);
         console.log('Project details fetched for editing:', project);
+        this.apiService.projectCreated();
       },
       error: (error) => console.error('Error fetching project details:', error),
     });

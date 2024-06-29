@@ -14,10 +14,13 @@
         <app-list-form
           *ngSwitchCase="'listform'"
           [currentId]="currentId"
+          [projectId]="projectid"
+          [data]="data"
         ></app-list-form>
         <app-task-form
           *ngSwitchCase="'taskform'"
           [currentId]="currentId"
+         
         ></app-task-form>
       </div>
     </div>

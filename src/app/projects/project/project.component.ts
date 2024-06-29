@@ -1,4 +1,11 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Input,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ModalComponent } from '../../components/modal/modal.component';
@@ -9,6 +16,7 @@ import { Task } from '../../models/task';
 import { Comments } from '../../models/comment';
 import { List } from '../../models/lists';
 import { ApiService } from '../../services/service-api.service';
+import { StoreService } from '../../services/store.service';
 
 @Component({
   selector: 'app-project',
@@ -27,7 +35,11 @@ export class ProjectComponent implements OnInit, OnDestroy {
   formType = 'Project';
   private modalSubscription: Subscription = new Subscription();
 
-  constructor(private apiService: ApiService, private modalService: ModalService) {}
+  constructor(
+    private apiService: ApiService,
+    private modalService: ModalService,
+    private storeService: StoreService
+  ) {}
 
   ngOnInit() {
     console.log('Project component initialized');
@@ -43,6 +55,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
 
   onProjectClick(project: Project) {
     this.projectClicked.emit(project.id);
+    this.storeService.projectId = project.id;
   }
 
   delete(id: number, formType: string) {
@@ -56,9 +69,9 @@ export class ProjectComponent implements OnInit, OnDestroy {
     });
   }
 
-  toggleModal(action:string, projectId: number) {
+  toggleModal(action: string, projectId: number, data: any) {
     // Assuming the modal service has an 'open' method that can be used to open a modal
-    this.modalService.open(action, projectId);
+    this.modalService.open(action, projectId, data);
   }
 
   toggleModalClose() {

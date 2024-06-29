@@ -19,7 +19,7 @@ import {FrenchDatePipe } from '../../pipes/french-date.pipe';
   standalone: true,
 })
 export class TaskCardComponent implements OnInit {
-  @Input() taskId?: string | number = '';
+  @Input() taskId:  number = 0;
   @Input() title: string = '';
   @Input() description: string = '';
   @Input() comments: Comments[] = [];
@@ -40,6 +40,18 @@ export class TaskCardComponent implements OnInit {
     this.commentForm = this.fb.group({
       Text: ['', Validators.required],
       // You can add more fields here as needed
+    });
+  }
+
+  deleteTask(id: number) {
+
+    console.log('Taskid: ', this.taskId);
+    
+    // Step 1: Find the index of the list to delete
+
+    // call api service  to delete with this id
+    this.apiService.delete(id, 'task').subscribe(() => {
+      this.apiService.taskCreated();
     });
   }
 

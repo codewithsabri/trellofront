@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(private modalService: ModalService) {}
   projectid: number = 0;
+  newproject: any = {};
 
   ngOnInit() {
     this.modalSubscription = this.modalService.watch().subscribe((status) => {
@@ -29,8 +30,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.modalSubscription.unsubscribe();
   }
 
-  toggleModal(action: string, id: number) {
-    this.modalService.open(action, id);
+  toggleModal(action: string, id: number, data : any) {
+    this.modalService.open(action, id, data);
   }
 
   toggleModalClose() {
