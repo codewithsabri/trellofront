@@ -46,6 +46,8 @@ export class ProjectFormComponent implements OnInit {
       },
       error: (error) => console.error('Error fetching project details:', error),
     });
+
+    this.apiService.projectCreated();
   }
 
 

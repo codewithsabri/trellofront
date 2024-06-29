@@ -51,19 +51,22 @@ export class ListFormComponent implements OnInit {
           projectId: projectId,
           tasks: [] // Assuming tasks need to be initialized here
         };
-
+    // Emit event for list creation
         // Call the API service with the payload
         this.apiService.update(id, payload, formType).subscribe({
           next: (project) => {
-            // Handle success
+            this.apiService.listCreated(); 
           },
           error: (error) => console.error('Error updating project details:', error),
         });
       }
     });
+
+  
   }
 
   submit() {
+    console.log("submit ok")
     if (this.listForm.valid) {
       // Use projectId from the store
       this.store.projectId$.pipe(take(1)).subscribe((projectId) => {
@@ -78,11 +81,14 @@ export class ListFormComponent implements OnInit {
           this.apiService.post(payload, this.formType).subscribe({
             next: (response) => {
               // Handle success
+              this.apiService.listCreated(); 
             },
             error: (error) => console.error('Error:', error),
           });
         }
       });
+   
     }
+    
   }
 }
