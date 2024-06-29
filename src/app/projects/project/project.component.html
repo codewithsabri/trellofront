@@ -4,6 +4,9 @@
       <button type="button" class="btn btn-danger" (click)="delete(project.id, formType); $event.stopPropagation()">
         Delete
       </button>
+      <button type="button" class="btn btn-primary" (click)="toggleModal('projectform', project.id); $event.stopPropagation()">
+        Edit
+      </button>
     </div>
     <div class="card-body">
       <p>{{project.id}}</p>

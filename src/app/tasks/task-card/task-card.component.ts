@@ -9,12 +9,13 @@ import { ApiService } from '../../services/service-api.service';
 import { environment } from '../../../environments/environment';
 import { CommonModule } from '@angular/common';
 import { Comments } from '../../models/comment';
+import {FrenchDatePipe } from '../../pipes/french-date.pipe';
 
 @Component({
   selector: 'app-task-card',
   templateUrl: './task-card.component.html',
   styleUrls: ['./task-card.component.scss'],
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule,FrenchDatePipe],
   standalone: true,
 })
 export class TaskCardComponent implements OnInit {
@@ -23,6 +24,7 @@ export class TaskCardComponent implements OnInit {
   @Input() description: string = '';
   @Input() comments: Comments[] = [];
   @Input() Listid: number = 0;
+  @Input() dueDate: string = '';
   @Input() projectid: number = 0;
 
   isVisible: boolean = false;
