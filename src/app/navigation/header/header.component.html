@@ -1,0 +1,24 @@
+<header>
+  <h1><a routerLink="/home">Trello</a></h1>
+  <button class="create-button" (click)="toggleModal('projectform', projectid)">
+    Create
+  </button>
+  <nav>
+    <ul
+      style="
+        display: flex;
+        gap: 1em;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <li><a routerLink="/home">Home</a></li>
+      <li><a routerLink="/projects">Projects</a></li>
+      <li><a routerLink="/lists">Lists</a></li>
+      <!-- Button in the middle -->
+      <li><a routerLink="/tasks">Tasks</a></li>
+      <li><a routerLink="/comments">Comments</a></li>
+    </ul>
+  </nav>
+</header>
+<app-modal *ngIf="isModalOpen"></app-modal>

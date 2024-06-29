@@ -1,0 +1,49 @@
+.card {
+    background-color: #fffefe;
+    border-radius: 5px; // Slightly reduced for proportionality
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 8px; // Slightly reduced to fit content
+    width: 90%;
+    margin: auto;
+    height: 150px; // Maintained height
+}
+
+.app-comment-wrapper {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically if needed */
+    width: 100%; /* Take full width to center content within */
+  }
+
+.card-title {
+    font-size: 16px; // Slightly reduced for proportionality
+    font-weight: bold;
+    margin-bottom: 6px; // Slightly reduced to fit in the card
+}
+
+.card-description {
+    font-size: 12px; // Slightly reduced for better fit
+    color: #666;
+}
+
+.card-button {
+    background-color: #056ad6;
+    color: #fff;
+    border: none;
+    border-radius: 3px; // Slightly reduced for proportionality
+    padding: 12px 12px; // Slightly reduced to fit in the card
+    font-size: 12px; // Slightly reduced for consistency
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+.card-button:hover {
+    background-color: #0056b3;
+}
+.button-container {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

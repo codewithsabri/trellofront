@@ -1,0 +1,19 @@
+<form [formGroup]="projectForm" (ngSubmit)="submit()">
+  <input formControlName="title" placeholder="Project Name" />
+  <input formControlName="description" placeholder="Description" />
+  <button type="submit" class="btn btn-primary">Submit</button>
+  <button
+    type="button"
+    class="btn btn-warning"
+    (click)="edit(currentId, url, formType)"
+  >
+    Edit
+  </button>
+  <button
+    type="button"
+    class="btn btn-danger"
+    (click)="delete(currentId, formType)"
+  >
+    Delete
+  </button>
+</form>
