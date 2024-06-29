@@ -2,7 +2,7 @@ import { List } from "./lists";
 
 export interface Project {
     id: number;
-    name: string;
+    title: string;
     description: string;
     lists: List[];
 }
