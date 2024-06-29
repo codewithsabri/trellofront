@@ -14,14 +14,15 @@
   <div class="main-content">
     <!-- Main content here -->
     <!-- Dynamically generate app-list components for each list in the selected project -->
-
     <ng-container *ngFor="let filteredList of filteredLists">
-      <app-list
-        [title]="filteredList.title"
-        [lists]="[filteredList]"
-        [projectId]="selectedProject"
-        [listId]="filteredList.id"
-      ></app-list>
+      <div class="column-list">
+        <app-list
+          [title]="filteredList.title"
+          [lists]="[filteredList]"
+          [projectId]="selectedProject"
+          [listId]="filteredList.id"
+        ></app-list>
+      </div>
     </ng-container>
     <div
       *ngIf="selectedProject > 0"
@@ -31,7 +32,6 @@
       <p>Add List</p>
       <i class="fas fa-plus"></i>
     </div>
-
     <!-- Placeholder for adding more lists if needed -->
   </div>
 </div>

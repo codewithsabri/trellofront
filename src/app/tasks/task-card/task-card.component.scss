@@ -1,49 +1,62 @@
-.card {
-    background-color: #fffefe;
-    border-radius: 5px; // Slightly reduced for proportionality
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 8px; // Slightly reduced to fit content
-    width: 90%;
-    margin: auto;
-    height: 150px; // Maintained height
-}
-
-.app-comment-wrapper {
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically if needed */
-    width: 100%; /* Take full width to center content within */
-  }
-
-.card-title {
-    font-size: 16px; // Slightly reduced for proportionality
-    font-weight: bold;
-    margin-bottom: 6px; // Slightly reduced to fit in the card
-}
-
-.card-description {
-    font-size: 12px; // Slightly reduced for better fit
-    color: #666;
-}
-
-.card-button {
-    background-color: #056ad6;
-    color: #fff;
-    border: none;
-    border-radius: 3px; // Slightly reduced for proportionality
-    padding: 12px 12px; // Slightly reduced to fit in the card
-    font-size: 12px; // Slightly reduced for consistency
+.task-wrapper {
     cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-
-.card-button:hover {
-    background-color: #0056b3;
-}
-.button-container {
-    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .card {
+    background-color: #ffffff;
+    border: 1px solid #335f8a;
+    border-radius: 8px;
+    padding: 15px;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-header {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-}
+    border-bottom: 1px solid #335f8a;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+  }
+  
+  .card-title {
+    color: #2f4558;
+    font-size: 18px;
+    margin: 0;
+  }
+  
+  .icon-group {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .edit-delete-icons {
+    color: #f26619;
+  }
+  
+  .card-body {
+    color: #2f4558;
+  }
+  
+  .card-footer {
+    color: #335f8a;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .card-text {
+    margin-top: 0;
+  }
+  
+  .comment-section {
+    margin-top: 10px;
+  }
+  
+  .add-comment-button {
+    margin-top: 10px;
+  }
