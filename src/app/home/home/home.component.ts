@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   isModalOpen = false;
   projects: Project[] = [];
   filteredLists: List[] | undefined = [] ;
-
+ 
   private modalSubscription: Subscription = new Subscription();
 
   constructor(

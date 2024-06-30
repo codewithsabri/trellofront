@@ -55,3 +55,8 @@ label {
   background-color: #1e6091; /* Fond encore plus foncé lorsqu'il est activé */
   transform: scale(0.98); /* Légère réduction pour un effet de clic */
 }
+
+.error {
+  color: red;
+  margin-top: 5px;
+}

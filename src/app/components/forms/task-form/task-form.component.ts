@@ -1,4 +1,3 @@
-// task-form.component.ts
 import { Component, OnInit, Input } from '@angular/core';
 import {
   FormBuilder,
@@ -12,16 +11,17 @@ import { format } from 'date-fns';
 import { CommonModule } from '@angular/common';
 import { ModalService } from '../../../services/modal-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { futureDateValidator } from './future-date-validator';
 
 @Component({
   selector: 'app-task-form',
   templateUrl: './task-form.component.html',
   styleUrls: ['./task-form.component.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule, CommonModule],
 })
 export class TaskFormComponent implements OnInit {
-  taskForm: FormGroup = new FormGroup({});
+  taskForm: FormGroup;
   formType: string = 'Task';
   listid: number = 0;
   isUpdateValue: boolean = false;
@@ -33,43 +33,37 @@ export class TaskFormComponent implements OnInit {
     private apiService: ApiService,
     private storeService: StoreService,
     private modalService: ModalService,
-    private snackBar: MatSnackBar, 
-  ) {}
-
-
-
-  ngOnInit(): void {
+    private snackBar: MatSnackBar
+  ) {
     this.taskForm = this.fb.group({
       Title: ['', Validators.required],
-      Categorie: ['', Validators.required], // Added taskCategorie form control
-      Description: ['', Validators.required], // Added taskDescription form control
-      dueDate: ['', Validators.required],
+      Categorie: ['', Validators.required],
+      Description: ['', Validators.required],
+      dueDate: ['', [Validators.required, futureDateValidator()]]
     });
+  }
 
+  ngOnInit(): void {
     this.storeService.taskId$.subscribe((taskId: number | null) => {
       if (taskId !== null) {
         this.currentId = taskId;
-        // Perform actions when taskId changes, if needed
       } else {
         console.log('TaskId is null');
-        // Handle the case where taskId is null
       }
     });
 
     this.storeService.listId$.subscribe((listId: number | null) => {
       if (listId !== null) {
         this.listid = listId;
-        // Perform actions when listId changes, if needed
       } else {
         console.log('ListId is null');
-        // Handle the case where listId is null
       }
     });
 
-
     this.isUpdateValue = this.storeService.isUpdate;
-    // Use taskId from StoreService as the currentId
   }
+
+  // Add other methods (edit, submit, etc.) here
 
   edit(formType: string) {
     const formattedDueDate = format(
@@ -114,7 +108,7 @@ export class TaskFormComponent implements OnInit {
           this.modalService.close();
           this.snackBar.open('Task created successfully!', 'Close', {
             duration: 3000,
-            panelClass: ['warning-snackbar'] // Duration in milliseconds after which the snack-bar will be automatically dismissed.
+            panelClass: ['success-snackbar'], // Duration in milliseconds after which the snack-bar will be automatically dismissed.
           }); //// Emit the task creation event
         },
         error: (error) => console.error('Error:', error),

@@ -13,8 +13,10 @@
         <p class="card-categorie" [ngStyle]="{'background-color': getBackgroundColor(taskCategorie)}">{{ taskCategorie }}</p>
       </div>
       <p class="card-text">{{ description }}</p>
-      <mat-icon (click)="showCommentsList()">comment</mat-icon>
-      <span class="ml-1">commentaires</span>
+      <div class="comment-section-header" (click)="showCommentsList()">
+        <mat-icon>comment</mat-icon>
+        <span class="ml-1">commentaires</span>
+      </div>
     </div>
     <form [formGroup]="commentForm" (ngSubmit)="submitComment()" *ngIf="showComments">
       <div class="input-container">

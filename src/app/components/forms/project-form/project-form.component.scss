@@ -44,6 +44,10 @@
     background-color: #1e6091; /* Fond encore plus foncé lorsqu'il est activé */
     transform: scale(0.98); /* Légère réduction pour un effet de clic */
   }
+
+  .bg {
+    background-color: var(--primary-color);
+  }
   
   /* Styles pour les messages d'erreur */
   .error-message {
@@ -64,4 +68,9 @@
 {
   color:white;
   background: #F44336 !important;
+}
+
+.error {
+  color: red;
+  margin-top: 5px;
 }
