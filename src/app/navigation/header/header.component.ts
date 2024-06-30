@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { ModalService } from '../../services/modal-service.service';
 import { Subscription } from 'rxjs';
+import { StoreService } from '../../services/store.service';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +17,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isModalOpen = false;
   private modalSubscription: Subscription = new Subscription();
 
-  constructor(private modalService: ModalService) {}
+  constructor(private modalService: ModalService, private storeService: StoreService) {}
   projectid: number = 0;
   newproject: any = {};
 
@@ -24,6 +25,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.modalSubscription = this.modalService.watch().subscribe((status) => {
       this.isModalOpen = status === 'open';
     });
+   
   }
 
   ngOnDestroy() {
@@ -31,6 +33,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   toggleModal(action: string, id: number, data : any) {
+    this.storeService.isUpdate = false;
     this.modalService.open(action, id, data);
   }
 

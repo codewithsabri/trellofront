@@ -9,6 +9,7 @@ import { GetProjectsService } from '../../services/get-projects.service';
 import { Project } from '../../models/project';
 import { List } from '../../models/lists';
 import { ApiService } from '../../services/service-api.service';
+import { StoreService } from '../../services/store.service';
 
 @Component({
   selector: 'app-home',
@@ -28,7 +29,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private modalService: ModalService,
     private getProjectsService: GetProjectsService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private storeService: StoreService
   ) {}
 
   ngOnInit() {
@@ -79,6 +81,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   toggleModal(action: string, projectId: number, data:any): void {
+    this.storeService.isUpdate = false;
     this.modalService.open(action, projectId,data);
   }
 

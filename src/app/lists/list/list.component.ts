@@ -8,6 +8,8 @@ import { Task } from '../../models/task';
 import { List } from '../../models/lists';
 import { TaskCardComponent } from '../../tasks/task-card/task-card.component';
 import { ApiService } from '../../services/service-api.service';
+import { StoreService } from '../../services/store.service';
+
 
 @Component({
   selector: 'app-list',
@@ -30,7 +32,7 @@ export class ListComponent implements OnInit, OnDestroy {
 
   private modalSubscription: Subscription = new Subscription();
 
-  constructor(private modalService: ModalService, private apiService: ApiService) {}
+  constructor(private modalService: ModalService, private apiService: ApiService, private storeService: StoreService) {}
 
   ngOnInit() {
     console.log(this.title);
@@ -86,10 +88,12 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   toggleModalList(action: string, id: number, data:any, projectid: any) {
+    this.storeService.isUpdate = false;
     this.modalService.openList(action, id, data, projectid);
   }
 
   toggleModal(action: string, id: number, data: any) {
+    this.storeService.isUpdate = true;
     this.modalService.open(action, id, data);
   }
 

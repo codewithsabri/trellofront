@@ -3,17 +3,19 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ApiService } from '../../../services/service-api.service';
 import { StoreService } from '../../../services/store.service';
 import { take } from 'rxjs/operators';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-list-form',
   templateUrl: './list-form.component.html',
   styleUrls: ['./list-form.component.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,CommonModule],
 })
 export class ListFormComponent implements OnInit {
   listForm: FormGroup = new FormGroup({});
   formType: string = 'List';
+  isUpdateValue: boolean = false;
   @Input() data: any = {};
   @Input() currentId: number = 0;
   @Input() projectId: number = 0;
@@ -30,15 +32,20 @@ export class ListFormComponent implements OnInit {
     this.listForm = this.fb.group({
       title: ['', Validators.required],
     });
+  
+    this.isUpdateValue = this.store.isUpdate;
 
-    console.log(this.currentId)
-
+    console.log(this.store.isUpdate)
+  
     // Subscribe to projectId changes from the store
     this.store.projectId$.subscribe(projectId => {
       if (projectId !== null) {
         // Perform actions when projectId changes, if needed
       }
     });
+  
+    // Subscribe to isUpdate changes from the store
+  
   }
 
   edit(id: number, formType: string) {

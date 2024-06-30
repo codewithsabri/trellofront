@@ -1,17 +1,17 @@
-
 <form [formGroup]="listForm" (ngSubmit)="submit()">
-    <div>
-      <label for="title">List Name</label>
-      <input id="title" formControlName="title" />
-    </div>
-    <button type="submit">Submit</button>
-    <button
+  <div>
+    <label for="title">List Name</label>
+    <input id="title" formControlName="title" />
+  </div>
+  <!-- Display the Submit button only if isUpdateValue is false -->
+  <button *ngIf="!isUpdateValue" type="submit">Submit</button>
+  <!-- Display the Edit button only if isUpdateValue is true -->
+  <button
+    *ngIf="isUpdateValue"
     type="button"
     class="btn btn-warning"
     (click)="edit(currentId, formType)"
   >
     Edit
   </button>
- 
-  </form>
-  
+</form>
