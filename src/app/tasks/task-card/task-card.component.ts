@@ -12,12 +12,13 @@ import { Comments } from '../../models/comment';
 import { FrenchDatePipe } from '../../pipes/french-date.pipe';
 import { ModalService } from '../../services/modal-service.service';
 import { Subscription } from 'rxjs';
+import { CommentComponent } from '../../comments/comment/comment.component';
 
 @Component({
   selector: 'app-task-card',
   templateUrl: './task-card.component.html',
   styleUrls: ['./task-card.component.scss'],
-  imports: [CommonModule, ReactiveFormsModule, FrenchDatePipe],
+  imports: [CommonModule, ReactiveFormsModule, FrenchDatePipe,CommentComponent],
   standalone: true,
 })
 export class TaskCardComponent implements OnInit {
@@ -28,6 +29,7 @@ export class TaskCardComponent implements OnInit {
   @Input() Listid: number = 0;
   @Input() dueDate: string = '';
   @Input() projectid: number = 0;
+ @Input() taskCategorie: string = '';
 
   isVisible: boolean = false;
   showComments: boolean = false;
@@ -40,6 +42,19 @@ export class TaskCardComponent implements OnInit {
     private storeService: StoreService,
     private modalService: ModalService
   ) {}
+
+  getBackgroundColor(categorie: string): string {
+    switch (categorie) {
+      case 'Marketing':
+        return '#30e49f';
+      case 'Design':
+        return 'orange';
+      case 'IT':
+        return 'green';
+      default:
+        return 'grey'; // Default color
+    }
+  }
 
   ngOnInit(): void {
     this.commentForm = this.fb.group({
@@ -59,21 +74,7 @@ export class TaskCardComponent implements OnInit {
     console.log(`Editing task with id: ${id}`);
 
     this.toggleModal('taskform', id, this.storeService.taskId);
-    // Create a payload with the form values and add the id as a key
-    // const payload = {
-    //   ...this.commentForm.value,
-    //   id: id,
-    //   Listid: this.Listid, // Add the id to the payload
-    // };
 
-    // this.apiService.update(id, payload, this.formType).subscribe({
-    //   next: (task) => {
-    //     this.commentForm.patchValue(task);
-    //     console.log('Task details fetched for editing:', task);
-    //     this.apiService.taskCreated();
-    //   },
-    //   error: (error) => console.error('Error fetching task details:', error),
-    // });
   }
 
   deleteTask(id: number) {

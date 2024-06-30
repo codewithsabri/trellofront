@@ -8,9 +8,7 @@ import {
 } from '@angular/forms';
 import { ApiService } from '../../../services/service-api.service';
 import { StoreService } from '../../../services/store.service';
-import { format } from 'date-fns'; 
-
-
+import { format } from 'date-fns';
 
 @Component({
   selector: 'app-task-form',
@@ -23,7 +21,6 @@ export class TaskFormComponent implements OnInit {
   taskForm: FormGroup = new FormGroup({});
   formType: string = 'Task';
   listid: number = 0;
-
 
   @Input() currentId: number = 0;
 
@@ -63,21 +60,20 @@ export class TaskFormComponent implements OnInit {
     // Use taskId from StoreService as the currentId
   }
 
-  edit( formType: string) {
-
-    
-    const formattedDueDate = format(this.taskForm.value.dueDate, "yyyy-MM-dd'T'00:00:00");
+  edit(formType: string) {
+    const formattedDueDate = format(
+      this.taskForm.value.dueDate,
+      "yyyy-MM-dd'T'00:00:00"
+    );
     // Create a payload with the form values and add the id as a key
     const payload = {
       ...this.taskForm.value,
-      dueDate: formattedDueDate, 
+      dueDate: formattedDueDate,
       id: this.currentId,
-      listid: this.listid // Add the id to the payload
+      listid: this.listid, // Add the id to the payload
     };
 
-    console.log(payload)
-
-
+    console.log(payload);
 
     this.apiService.update(this.currentId, payload, formType).subscribe({
       next: (task) => {
