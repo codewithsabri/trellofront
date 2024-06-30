@@ -1,8 +1,9 @@
 <form [formGroup]="projectForm" (ngSubmit)="submit()">
   <input formControlName="title" placeholder="Project Name" />
   <input formControlName="description" placeholder="Description" />
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button *ngIf="!isUpdateValue"  type="submit" class="btn btn-primary">Submit</button>
   <button
+  *ngIf="isUpdateValue" 
     type="button"
     class="btn btn-warning"
     (click)="edit(currentId, formType)"
@@ -10,3 +11,6 @@
     Edit
   </button>
 </form>
+
+
+

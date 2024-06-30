@@ -7,6 +7,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { ApiService } from '../../../services/service-api.service';
+import { CommonModule } from '@angular/common';
+import { StoreService } from '../../../services/store.service';
 
 
 @Component({
@@ -14,21 +16,23 @@ import { ApiService } from '../../../services/service-api.service';
   templateUrl: './project-form.component.html',
   styleUrls: ['./project-form.component.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
 })
 export class ProjectFormComponent implements OnInit {
   projectForm: FormGroup = new FormGroup({});
   formType: string = 'Project';
+  isUpdateValue: boolean = false;
 
   @Input() currentId: number = 0;
 
-  constructor(private fb: FormBuilder, private apiService: ApiService) {}
+  constructor(private fb: FormBuilder, private apiService: ApiService,private storeService: StoreService) {}
 
   ngOnInit(): void {
     this.projectForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
     });
+    this.isUpdateValue = this.storeService.isUpdate;
   }
   edit(id: number, formType: string) {
     console.log(`Editing project with id: ${id}`);

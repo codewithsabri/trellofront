@@ -9,18 +9,20 @@ import {
 import { ApiService } from '../../../services/service-api.service';
 import { StoreService } from '../../../services/store.service';
 import { format } from 'date-fns';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-task-form',
   templateUrl: './task-form.component.html',
   styleUrls: ['./task-form.component.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,CommonModule],
 })
 export class TaskFormComponent implements OnInit {
   taskForm: FormGroup = new FormGroup({});
   formType: string = 'Task';
   listid: number = 0;
+  isUpdateValue: boolean = false;
 
   @Input() currentId: number = 0;
 
@@ -29,6 +31,8 @@ export class TaskFormComponent implements OnInit {
     private apiService: ApiService,
     private storeService: StoreService
   ) {}
+
+
 
   ngOnInit(): void {
     this.taskForm = this.fb.group({
@@ -57,6 +61,9 @@ export class TaskFormComponent implements OnInit {
         // Handle the case where listId is null
       }
     });
+
+
+    this.isUpdateValue = this.storeService.isUpdate;
     // Use taskId from StoreService as the currentId
   }
 

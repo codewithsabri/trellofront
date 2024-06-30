@@ -23,6 +23,8 @@ export class StoreService {
   private readonly _tasks = new BehaviorSubject<Task[]>([]);
   private readonly _comments = new BehaviorSubject<Comments[]>([]);
   private readonly _listArray = new BehaviorSubject<List[]>([]);
+  private readonly _isUpdate = new BehaviorSubject<boolean>(false);
+
 
   readonly projectId$: Observable<number | null> = this._projectId.asObservable();
   readonly listId$: Observable<number | null> = this._listId.asObservable();
@@ -30,8 +32,17 @@ export class StoreService {
   readonly tasks$: Observable<Task[]> = this._tasks.asObservable();
   readonly comments$: Observable<Comments[]> = this._comments.asObservable();
   readonly listArray$: Observable<List[]> = this._listArray.asObservable();
+  readonly isUpdate$: Observable<boolean> = this._isUpdate.asObservable(); 
 
   constructor() {}
+
+  get isUpdate(): boolean {
+    return this._isUpdate.getValue();
+  }
+
+  set isUpdate(val: boolean) {
+    this._isUpdate.next(val);
+  }
 
   get projectId(): number | null {
     return this._projectId.getValue();

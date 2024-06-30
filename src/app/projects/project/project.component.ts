@@ -70,6 +70,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
   }
 
   toggleModal(action: string, projectId: number, data: any) {
+    this.storeService.isUpdate = true;
     // Assuming the modal service has an 'open' method that can be used to open a modal
     this.modalService.open(action, projectId, data);
   }

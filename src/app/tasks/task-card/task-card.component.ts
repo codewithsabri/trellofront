@@ -76,6 +76,8 @@ export class TaskCardComponent implements OnInit {
     
     console.log(`Editing task with id: ${id}`);
 
+    this.storeService.isUpdate = true;
+
     this.toggleModal('taskform', id, this.storeService.taskId);
 
   }
