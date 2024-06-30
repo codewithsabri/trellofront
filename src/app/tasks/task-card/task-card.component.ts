@@ -13,12 +13,14 @@ import { FrenchDatePipe } from '../../pipes/french-date.pipe';
 import { ModalService } from '../../services/modal-service.service';
 import { Subscription } from 'rxjs';
 import { CommentComponent } from '../../comments/comment/comment.component';
+import { MatIconModule } from '@angular/material/icon';
+
 
 @Component({
   selector: 'app-task-card',
   templateUrl: './task-card.component.html',
   styleUrls: ['./task-card.component.scss'],
-  imports: [CommonModule, ReactiveFormsModule, FrenchDatePipe,CommentComponent],
+  imports: [CommonModule, ReactiveFormsModule, FrenchDatePipe,CommentComponent, MatIconModule ],
   standalone: true,
 })
 export class TaskCardComponent implements OnInit {
@@ -32,6 +34,7 @@ export class TaskCardComponent implements OnInit {
  @Input() taskCategorie: string = '';
 
   isVisible: boolean = false;
+  showAddCommentButton: boolean = true;
   showComments: boolean = false;
   commentForm: FormGroup = new FormGroup({});
   formType: string = 'Comment';
@@ -93,14 +96,25 @@ export class TaskCardComponent implements OnInit {
     this.modalService.open(action, projectId, data);
   }
 
-  toggleComments(): void {
-    this.showComments = !this.showComments;
+  deleteComment = (id: number) => {
+    // Assuming the modal service has a 'confirm' method that can be used to show a confirmation dialog
+ 
   }
 
+  editComment = (id: number) => {
+
+  }
+
+  toggleComments() {
+    this.showComments = !this.showComments;
+    // Assuming showComments is true when comments are shown
+    this.showAddCommentButton = !this.showComments;
+  }
   showCommentsList(): void {
     this.isVisible = !this.isVisible;
   }
   submitComment(): void {
+    
     if (this.commentForm.valid) {
       const payload = {
         ...this.commentForm.value,
@@ -119,6 +133,7 @@ export class TaskCardComponent implements OnInit {
         error: (error) => console.error('Comment Error:', error),
       });
     }
+
   }
   // Methods for calculating card height remain unchanged
 }

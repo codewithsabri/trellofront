@@ -2,13 +2,9 @@
   <div class="card">
     <div class="card-header">
       <h5 class="card-title">{{ title }}</h5>
-
       <div class="icon-group">
-        <i class="fas fa-edit edit-delete-icons" (click)="editTask(taskId)"></i>
-        <i
-          class="fas fa-trash-alt edit-delete-icons"
-          (click)="deleteTask(taskId)"
-        ></i>
+        <mat-icon class="edit-delete-icons" (click)="editTask(taskId)">edit</mat-icon>
+        <mat-icon class="edit-delete-icons" (click)="deleteTask(taskId)">delete_outline</mat-icon>
       </div>
     </div>
     <div class="card-body">
@@ -16,58 +12,39 @@
         <small class="text-muted">Avant le : {{ dueDate | frenchDate }}</small>
         <p class="card-categorie" [ngStyle]="{'background-color': getBackgroundColor(taskCategorie)}">{{ taskCategorie }}</p>
       </div>
-
       <p class="card-text">{{ description }}</p>
-      <i class="fas fa-comment"></i>
-      <span class="ml-1" (click)="showCommentsList()">commentaires</span>
+      <mat-icon (click)="showCommentsList()">comment</mat-icon>
+      <span class="ml-1">commentaires</span>
     </div>
-    <form
-      [formGroup]="commentForm"
-      (ngSubmit)="submitComment()"
-      *ngIf="showComments"
-    >
+    <form [formGroup]="commentForm" (ngSubmit)="submitComment()" *ngIf="showComments">
       <div class="input-container">
         <div class="input-group">
-          <input
-            type="text"
-            placeholder="Add comment"
-            class="form-control"
-            formControlName="Text"
-          />
+          <input type="text" placeholder="Add comment" class="form-control" formControlName="Text" />
           <div class="input-group-append">
-            <button
-              class="btn btn-outline-secondary submit-button"
-              type="submit"
-            >
-              <i class="fas fa-paper-plane"></i>
+            <button class="btn btn-outline-secondary submit-button" type="submit">
+              <mat-icon>send</mat-icon>
             </button>
           </div>
         </div>
       </div>
     </form>
     <div class="card-footer">
-      <div class="button-container">
-        <button
-          class="btn btn-outline-primary add-comment-button"
-          (click)="toggleComments()"
-        >
-          Add Comment
-        </button>
+      <div *ngIf="isVisible">
+        <div class="button-container">
+          <button *ngIf="showAddCommentButton" class="btn btn-outline-primary add-comment-button" (click)="toggleComments(); showAddCommentButton = false;">
+            Add Comment
+          </button>
+        </div>
       </div>
-
-      <!-- Section des commentaires -->
-      <!-- Section des commentaires -->
       <div *ngIf="isVisible" class="comment-wrapper">
         <ng-container *ngFor="let comment of comments">
-          <app-comment
-            [commentText]="comment.text"
-            [commentAuthor]="comment.author"
-          ></app-comment>
+          <div style="display: flex; flex-direction: row; align-items: center;">
+            <app-comment [commentText]="comment.text" [commentAuthor]="comment.author"></app-comment>
+            <mat-icon class="icon-button" (click)="editComment(comment.id)">edit</mat-icon>
+            <mat-icon class="icon-button" (click)="deleteComment(comment.id)">delete_outline</mat-icon>
+          </div>
         </ng-container>
       </div>
-      <!-- Bouton pour ajouter un commentaire -->
-
-      <!-- Formulaire d'ajout de commentaire -->
     </div>
   </div>
 </div>

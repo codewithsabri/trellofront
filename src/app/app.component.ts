@@ -4,7 +4,10 @@ import { HeaderComponent } from './navigation/header/header.component';
 import { FooterComponent } from './navigation/footer/footer.component';
 import { routes } from './app.routes';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { HttpClientModule, provideHttpClient } from '@angular/common/http'; // Import HttpClientModule
+import { HttpClientModule, provideHttpClient } from '@angular/common/http'; 
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +18,8 @@ import { HttpClientModule, provideHttpClient } from '@angular/common/http'; // I
     RouterOutlet,
     HeaderComponent,
     FooterComponent,
-    HttpClientModule, // Add HttpClientModule here
+    HttpClientModule,
+    MatIconModule // Add HttpClientModule here
   ],
 })
 export class AppComponent {
