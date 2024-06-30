@@ -59,3 +59,9 @@
     display: block; /* Affichage en bloc */
   }
   
+
+  ::ng-deep .custom-snackbar
+{
+  color:white;
+  background: #F44336 !important;
+}

@@ -20,3 +20,29 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
       background-color: green ;// Replace #desiredColor with your color
       color: whitesmoke; // Replace #textColor with the desired text color
     }
+
+    .mat-mdc-snack-bar-container {
+        &.custom-snackbar {
+          --mdc-snackbar-container-color: #005983;
+          --mat-mdc-snack-bar-button-color: #fff;
+          --mdc-snackbar-supporting-text-color: #fff;
+        }
+      
+        &.info-snackbar {
+          --mdc-snackbar-container-color: #2196f3; // Example: Blue for info
+          --mat-mdc-snack-bar-button-color: #fff;
+          --mdc-snackbar-supporting-text-color: #fff;
+        }
+      
+        &.warning-snackbar {
+          --mdc-snackbar-container-color: #ff9800; // Example: Orange for warning
+          --mat-mdc-snack-bar-button-color: #000; // Example: Black text for buttons
+          --mdc-snackbar-supporting-text-color: #000; // Example: Black text color
+        }
+      
+        &.error-snackbar {
+          --mdc-snackbar-container-color: #f44336; // Example: Red for error
+          --mat-mdc-snack-bar-button-color: #fff;
+          --mdc-snackbar-supporting-text-color: #fff;
+        }
+      }

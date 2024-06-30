@@ -113,7 +113,8 @@ export class TaskFormComponent implements OnInit {
           this.apiService.taskCreated();
           this.modalService.close();
           this.snackBar.open('Task created successfully!', 'Close', {
-            duration: 3000, // Duration in milliseconds after which the snack-bar will be automatically dismissed.
+            duration: 3000,
+            panelClass: ['warning-snackbar'] // Duration in milliseconds after which the snack-bar will be automatically dismissed.
           }); //// Emit the task creation event
         },
         error: (error) => console.error('Error:', error),
