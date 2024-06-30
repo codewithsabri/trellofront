@@ -28,5 +28,5 @@
   <button *ngIf="!isUpdateValue" type="submit" class="btn btn-primary">Submit</button>
 </form>
 <!-- Conditionally display the Edit button when isUpdate is true -->
-<button *ngIf="isUpdateValue" (click)="edit(formType)">Edit</button>
-<p>tache</p>
+<button *ngIf="isUpdateValue" type="button"
+class="btn btn-warning" (click)="edit(formType)">Edit</button>

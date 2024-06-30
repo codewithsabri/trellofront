@@ -1,10 +1,10 @@
-<form [formGroup]="listForm" (ngSubmit)="submit()">
+<form [formGroup]="listForm" (ngSubmit)="submit()" class="my-form">
   <div>
     <label for="title">List Name</label>
-    <input id="title" formControlName="title" />
+    <input id="title" formControlName="title" class="form-control" />
   </div>
   <!-- Display the Submit button only if isUpdateValue is false -->
-  <button *ngIf="!isUpdateValue" type="submit">Submit</button>
+  <button *ngIf="!isUpdateValue" type="submit" class="btn btn-primary">Submit</button>
   <!-- Display the Edit button only if isUpdateValue is true -->
   <button
     *ngIf="isUpdateValue"

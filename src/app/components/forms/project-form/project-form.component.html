@@ -1,6 +1,6 @@
-<form [formGroup]="projectForm" (ngSubmit)="submit()">
-  <input formControlName="title" placeholder="Project Name" />
-  <input formControlName="description" placeholder="Description" />
+<form [formGroup]="projectForm" (ngSubmit)="submit()" class="my-form">
+  <input formControlName="title" placeholder="Project Name"  class="form-control" />
+  <input formControlName="description" placeholder="Description"  class="form-control"/>
   <button *ngIf="!isUpdateValue"  type="submit" class="btn btn-primary">Submit</button>
   <button
   *ngIf="isUpdateValue" 

@@ -1,7 +1,7 @@
 <div class="modal-overlay" *ngIf="isOpen">
   <div class="modal">
     <div class="modal-header">
-      <h2>{{ modalTitle }}</h2>
+      <h2>{{ formType === 'projectform' ? 'My Project' : formType === 'listform' ? 'My List' : 'Add Task' }}</h2>
     </div>
     <div class="modal-body">
       <!-- ngSwitch directive to switch between forms -->
