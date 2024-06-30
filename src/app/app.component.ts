@@ -8,6 +8,8 @@ import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-root',
@@ -19,8 +21,11 @@ import { MatInputModule } from '@angular/material/input';
     HeaderComponent,
     FooterComponent,
     HttpClientModule,
-    MatIconModule // Add HttpClientModule here
+    MatIconModule,
   ],
+  providers: [
+    MatSnackBar // Move MatSnackBar to providers array
+  ]
 })
 export class AppComponent {
   title = 'Trello';

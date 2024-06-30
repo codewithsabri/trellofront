@@ -11,3 +11,12 @@ $fa-font-path: "../node_modules/@fortawesome/fontawesome-free/webfonts";
 @import "../node_modules/@fortawesome/fontawesome-free/scss/brands";
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.mat-snack-bar-container {
+    z-index: 9999 !important; /* Set your desired z-index value */
+  }
+
+
+  .custom-snackbar {
+      background-color: green ;// Replace #desiredColor with your color
+      color: whitesmoke; // Replace #textColor with the desired text color
+    }

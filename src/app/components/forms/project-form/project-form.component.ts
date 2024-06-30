@@ -9,6 +9,8 @@ import {
 import { ApiService } from '../../../services/service-api.service';
 import { CommonModule } from '@angular/common';
 import { StoreService } from '../../../services/store.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ModalService } from '../../../services/modal-service.service';
 
 
 @Component({
@@ -25,7 +27,7 @@ export class ProjectFormComponent implements OnInit {
 
   @Input() currentId: number = 0;
 
-  constructor(private fb: FormBuilder, private apiService: ApiService,private storeService: StoreService) {}
+  constructor(private fb: FormBuilder, private apiService: ApiService, private storeService: StoreService, private snackBar: MatSnackBar, private modalService: ModalService) {}
 
   ngOnInit(): void {
     this.projectForm = this.fb.group({
@@ -60,7 +62,12 @@ export class ProjectFormComponent implements OnInit {
       this.apiService.post(this.projectForm.value, 'project').subscribe({
         next: (response) => {
           console.log('Success:', response);
-          this.apiService.projectCreated(); // Publish the event
+          this.apiService.projectCreated();
+          this.modalService.close();
+          this.snackBar.open('Project created successfully!', 'Close', {
+            duration: 3000, 
+            panelClass: ['custom-snackbar']// Duration in milliseconds after which the snack-bar will be automatically dismissed.
+          }); // Publish the event
         },
         error: (error) => console.error('Error:', error),
       });

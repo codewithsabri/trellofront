@@ -1,3 +1,6 @@
 .bg {
   background: rgb(247, 238, 239);
 }
+.mat-snack-bar-container {
+  z-index: 9999 !important; /* Set your desired z-index value */
+}

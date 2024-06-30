@@ -4,6 +4,8 @@ import { ApiService } from '../../../services/service-api.service';
 import { StoreService } from '../../../services/store.service';
 import { take } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
+import { ModalService } from '../../../services/modal-service.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-list-form',
@@ -25,7 +27,9 @@ export class ListFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder, 
     private apiService: ApiService,
-    private store: StoreService // Use StoreService for state management
+    private store: StoreService ,
+    private modalService: ModalService,
+    private snackBar: MatSnackBar, // Use StoreService for state management
   ) {}
 
   ngOnInit(): void {
@@ -89,6 +93,10 @@ export class ListFormComponent implements OnInit {
             next: (response) => {
               // Handle success
               this.apiService.listCreated(); 
+              this.modalService.close();
+              this.snackBar.open('List created successfully!', 'Close', {
+                duration: 3000, // Duration in milliseconds after which the snack-bar will be automatically dismissed.
+              }); // // Emit the list creation event
             },
             error: (error) => console.error('Error:', error),
           });

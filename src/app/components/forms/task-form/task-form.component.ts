@@ -10,6 +10,8 @@ import { ApiService } from '../../../services/service-api.service';
 import { StoreService } from '../../../services/store.service';
 import { format } from 'date-fns';
 import { CommonModule } from '@angular/common';
+import { ModalService } from '../../../services/modal-service.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-task-form',
@@ -29,7 +31,9 @@ export class TaskFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
-    private storeService: StoreService
+    private storeService: StoreService,
+    private modalService: ModalService,
+    private snackBar: MatSnackBar, 
   ) {}
 
 
@@ -106,7 +110,11 @@ export class TaskFormComponent implements OnInit {
       this.apiService.post(payload, this.formType).subscribe({
         next: (response) => {
           console.log('Success:', response);
-          this.apiService.taskCreated(); // Emit the task creation event
+          this.apiService.taskCreated();
+          this.modalService.close();
+          this.snackBar.open('Task created successfully!', 'Close', {
+            duration: 3000, // Duration in milliseconds after which the snack-bar will be automatically dismissed.
+          }); //// Emit the task creation event
         },
         error: (error) => console.error('Error:', error),
       });
