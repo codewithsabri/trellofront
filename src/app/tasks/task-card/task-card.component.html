@@ -4,7 +4,7 @@
       <h5 class="card-title">{{ title }}</h5>
       <small class="text-muted">{{ dueDate | frenchDate }}</small>
       <div class="icon-group">
-        <i class="fas fa-edit edit-delete-icons"></i>
+        <i class="fas fa-edit edit-delete-icons"   (click)="editTask(taskId)"></i>
         <i
           class="fas fa-trash-alt edit-delete-icons"
           (click)="deleteTask(taskId)"

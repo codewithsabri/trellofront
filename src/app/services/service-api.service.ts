@@ -52,8 +52,9 @@ export class ApiService {
 
   update(id: number, data: any, formType: string): Observable<any> {
      console.log('Data:', data);
-    // return this.http.put(`${this.apiurl}/${formType}/${id}`, data);
     return this.http.put(`${this.apiurl}/${formType}/${id}`, data);
+    // return this.http.put(`${this.apiurl}/${formType}/${id}`, data);
+
 
   }
 }
