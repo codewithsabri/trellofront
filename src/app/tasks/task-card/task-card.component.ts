@@ -1,10 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { ApiService } from '../../services/service-api.service';
 import { StoreService } from '../../services/store.service';
 import { CommonModule } from '@angular/common';
@@ -20,7 +15,13 @@ import { MatIconModule } from '@angular/material/icon';
   selector: 'app-task-card',
   templateUrl: './task-card.component.html',
   styleUrls: ['./task-card.component.scss'],
-  imports: [CommonModule, ReactiveFormsModule, FrenchDatePipe,CommentComponent, MatIconModule ],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FrenchDatePipe,
+    CommentComponent,
+    MatIconModule,
+  ],
   standalone: true,
 })
 export class TaskCardComponent implements OnInit {
@@ -31,20 +32,44 @@ export class TaskCardComponent implements OnInit {
   @Input() Listid: number = 0;
   @Input() dueDate: string = '';
   @Input() projectid: number = 0;
- @Input() taskCategorie: string = '';
+  @Input() taskCategorie: string = '';
 
   isVisible: boolean = false;
   showAddCommentButton: boolean = true;
   showComments: boolean = false;
-  commentForm: FormGroup = new FormGroup({});
+  commentForm: FormGroup;
+  editCommentForms: { [key: number]: FormControl } = {}; 
   formType: string = 'Comment';
-  private modalSubscription: Subscription = new Subscription();
+  editCommentMode: boolean = false;
+  editingCommentId: number | null = null;
+  private modalSubscription: Subscription;
+
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
     private storeService: StoreService,
     private modalService: ModalService
-  ) {}
+  ) {
+    this.commentForm = this.fb.group({
+      text: ['', Validators.required],
+      // You can add more fields here as needed
+    });
+    this.modalSubscription = new Subscription();
+  }
+
+  ngOnInit(): void {
+    this.modalSubscription = this.modalService.watch().subscribe((status) => {
+      console.log(`Modal status: ${status}`);
+    });
+
+    this.initializeEditCommentForms();
+  }
+
+  initializeEditCommentForms(): void {
+    this.comments.forEach(comment => {
+      this.editCommentForms[comment.id] = new FormControl(comment.text);
+    });
+  }
 
   getBackgroundColor(categorie: string): string {
     switch (categorie) {
@@ -59,83 +84,87 @@ export class TaskCardComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.commentForm = this.fb.group({
-      Text: ['', Validators.required],
-      // You can add more fields here as needed
-    });
-    this.modalSubscription = this.modalService.watch().subscribe((status) => {
-      // Assuming the modal service has a method 'watch' that notifies about modal status
-      console.log(`Modal status: ${status}`);
-    });
-  }
-
-  editTask(id: number) {
+  editTask(id: number): void {
     this.storeService.taskId = id;
     this.storeService.listId = this.Listid;
-    
     console.log(`Editing task with id: ${id}`);
-
     this.storeService.isUpdate = true;
-
     this.toggleModal('taskform', id, this.storeService.taskId);
-
   }
 
-  deleteTask(id: number) {
+  deleteTask(id: number): void {
     console.log('Taskid: ', this.taskId);
-
-    // Step 1: Find the index of the list to delete
-
-    // call api service  to delete with this id
     this.apiService.delete(id, 'task').subscribe(() => {
       this.apiService.taskCreated();
     });
   }
 
-  toggleModal(action: string, projectId: number, data: any) {
-    // Assuming the modal service has an 'open' method that can be used to open a modal
+  startEditing(commentId: number): void {
+    this.editingCommentId = commentId;
+  }
+
+  editComment(id: number, text: string | null): void {
+    if (text === null) {
+      console.error('Text is null');
+      return;
+    }
+    console.log(`Editing comment with id: ${id} and text: ${text}`); 
+    const payload = {
+      ...this.commentForm.value,
+      Text: text,
+      author: 'user modified',
+      id: id,
+      taskId: this.taskId,
+    };
+    this.apiService.update(id, payload, 'comment').subscribe({
+      next: (response) => {
+        console.log('Success:', response);
+        this.apiService.commentCreated();
+      },
+    });
+  }
+
+  toggleEditCommentMode(): void {
+    this.editCommentMode = !this.editCommentMode;
+  }
+
+  deleteComment(id: number): void {
+    this.apiService.delete(id, 'comment').subscribe({
+      next: (response) => {
+        console.log('Success:', response);
+        this.apiService.commentCreated();
+      },
+    });
+  }
+
+  toggleModal(action: string, projectId: number, data: any): void {
     this.modalService.open(action, projectId, data);
   }
 
-  deleteComment = (id: number) => {
-    // Assuming the modal service has a 'confirm' method that can be used to show a confirmation dialog
- 
-  }
-
-  editComment = (id: number) => {
-
-  }
-
-  toggleComments() {
+  toggleComments(): void {
     this.showComments = !this.showComments;
-    // Assuming showComments is true when comments are shown
     this.showAddCommentButton = !this.showComments;
   }
+
   showCommentsList(): void {
     this.isVisible = !this.isVisible;
   }
+
   submitComment(): void {
-    
     if (this.commentForm.valid) {
       const payload = {
         ...this.commentForm.value,
         taskId: this.taskId,
-        author: 'Anonymous', // Assuming taskId is needed for the comment
-        // Add any other relevant fields here
+        author: 'Anonymous',
       };
-
       console.log('Comment Payload:', payload);
       this.apiService.post(payload, this.formType).subscribe({
         next: (response) => {
           console.log('Comment Success:', response);
-          // Handle successful comment submission (e.g., refresh comments list)
-          this.apiService.commentCreated(); // Notify the ApiService that a comment has been created
+          this.apiService.commentCreated();
         },
         error: (error) => console.error('Comment Error:', error),
       });
     }
-
   }
-  // Methods for calculating card height remain unchanged
 }
